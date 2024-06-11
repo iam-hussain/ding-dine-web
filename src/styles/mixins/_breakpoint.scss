@@ -1,0 +1,85 @@
+// Sass functions
+@use "sass:map";
+@use "sass:list";
+@use "sass:math";
+@use "sass:string";
+@use "../functions" as fn;
+
+// Breakpoint Vars
+$xxs: fn.px-to-rem(375) !default;
+$xs: fn.px-to-rem(568) !default;
+$sm: fn.px-to-rem(640) !default;
+$md: fn.px-to-rem(768) !default;
+$lg: fn.px-to-rem(1024) !default;
+$xl: fn.px-to-rem(1280) !default;
+$xxl: fn.px-to-rem(1536) !default;
+
+// Breakpoint Map
+$breakpoints: (
+	"xxs": $xxs,
+	"xs": $xs,
+	"sm": $sm,
+	"md": $md,
+	"lg": $lg,
+	"xl": $xl,
+	"xxl": $xxl
+) !default;
+
+/// Breakpoint Mixin using breakpoint map
+/// @param {String} $breakpoint Breakpoint key from the breakpoints map
+/// @param {String} $direction ['min'] Breakpoint direction min or max
+/// @param {Map} $breakpoint-map [$breakpoints] All breakpoint vars in one map
+/// @param {Number} $max-overlap [null] How much should the max-width breakpoint overlap the min-width one?
+/// @group @media
+/// @author Felix Scholze
+/// @since v1.1.0
+///
+/// @example
+///    .my-selector {
+///      @include breakpoint(lg) {...}
+///    }
+///
+/// @example CSS - Output CSS
+///    @media (min-width: 78.75rem) {
+///       .my-selector {...}
+///    }
+///
+@mixin breakpoint($breakpoint, $direction: "min", $breakpoint-map: $breakpoints, $max-overlap: null) {
+	/// Error handling
+	$valid-direction: ("min", "max");
+
+	/// Search and return the key from the breakpoints map
+	$get-breakpoints: map.get($breakpoint-map, $breakpoint);
+	$unit: math.unit($get-breakpoints);
+
+	/// Give an error if the breakpoint direction is not correct
+	@if not list.index($valid-direction, $direction) {
+		@error '❌  ===> #{$direction} is not a valid option for direction. Please use: #{$valid-direction}';
+	}
+
+	/// Give an error if the breakpoint does not exist in the map
+	@if map.has-key($breakpoint-map, $breakpoint) != true {
+		@error '❌  ===> #{$breakpoint} is not valid breakpoint. Please use: #{map.keys($breakpoint-map)}';
+	}
+
+	/// If $max-overlap is not set, set it to 1px or 0.01rem
+	@if not $max-overlap {
+		@if fn.str-contains($unit, "rem") or fn.str-contains($unit, "em") {
+			$max-overlap: 0.01;
+		} @else {
+			$max-overlap: 1;
+		}
+	}
+	@if $direction == "min" {
+		@media (width >= $get-breakpoints) {
+			@content;
+		}
+	}
+	$breakpoints-diff: $get-breakpoints - $max-overlap;
+
+	@if $direction == "max" {
+		@media (width <= $breakpoints-diff) {
+			@content;
+		}
+	}
+}
