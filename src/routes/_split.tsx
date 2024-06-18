@@ -4,7 +4,7 @@ import Box from "@/components/atoms/box";
 import Brand from "@/components/atoms/brand";
 import { Separator } from "@/components/atoms/separator";
 
-import BillingIllustration from "../assets/billing-illustration.svg";
+import Cooking from "@/assets/undraw_cooking.svg";
 
 export const Route = createFileRoute("/_split")({
   component: LayoutComponent,
@@ -15,7 +15,7 @@ function LayoutComponent() {
     <Box className="min-h-screen bg-paper">
       <Box preset={"grid-split"}className="w-full gap-16 p-4 ">
         <Box className="justify-end hidden h-full max-w-sm m-auto mr-0 grow md:flex">
-          <img src={BillingIllustration} alt="My SVG" className="" />
+          <img src={Cooking} alt="cooking" className="" />
         </Box>
         <Box
           preset={"stack-center"}

@@ -5,7 +5,7 @@ import Icon from "@/components/atoms/icon";
 
 // Define the variants using cva
 const brandStyle = cva(
-  "flex w-auto m-auto ml-0 gap-2 justify-center align-middle items-center select-none",
+  "flex w-auto gap-2 justify-center align-middle items-center select-none",
   {
     variants: {
       placement: {

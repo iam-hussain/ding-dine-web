@@ -4,12 +4,13 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 
-const typographyStyles = cva("", {
+const typographyStyles = cva("w-full", {
   variants: {
     variant: {
-      h1: "text-5xl",
-      h2: "text-4xl",
+      h1: "text-5xl font-bold",
+      h2: "text-4xl font-bold",
       h3: "text-2xl font-semibold tracking-tight",
+      h4: "text-xl font-normal tracking-tight",
       sub: "text-md font-sans",
       body: "leading-7",
       caption: "text-sm font-light",
@@ -21,18 +22,12 @@ const typographyStyles = cva("", {
       tableCell: "border px-4 py-2 text-left",
     },
     align: {
+      'default': '',
       left: "text-left",
       center: "text-center",
       right: "text-right",
       justify: "text-justify",
     },
-    // weight: {
-    //   light: "font-light",
-    //   normal: "font-normal",
-    //   medium: "font-medium",
-    //   semibold: "font-semibold",
-    //   bold: "font-bold",
-    // },
     color: {
       primary: "text-primary",
       secondary: "text-secondary",
@@ -42,12 +37,12 @@ const typographyStyles = cva("", {
       info: "text-info",
       success: "text-success",
       default: "text-default",
+      light: "text-foreground/80",
     },
   },
   defaultVariants: {
     variant: "body",
-    align: "left",
-    // weight: "normal",
+    align: "default",
     color: "default",
   },
 });
