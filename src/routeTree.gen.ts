@@ -19,8 +19,9 @@ import { Route as AuthenticatedImport } from './routes/_authenticated'
 // Create Virtual Routes
 
 const AboutLazyImport = createFileRoute('/about')()
-const SplitIndexLazyImport = createFileRoute('/_split/')()
+const IndexLazyImport = createFileRoute('/')()
 const SplitStoresLazyImport = createFileRoute('/_split/stores')()
+const SplitLoginLazyImport = createFileRoute('/_split/login')()
 
 // Create/Update Routes
 
@@ -39,20 +40,32 @@ const AuthenticatedRoute = AuthenticatedImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const SplitIndexLazyRoute = SplitIndexLazyImport.update({
+const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
-  getParentRoute: () => SplitRoute,
-} as any).lazy(() => import('./routes/_split/index.lazy').then((d) => d.Route))
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
 const SplitStoresLazyRoute = SplitStoresLazyImport.update({
   path: '/stores',
   getParentRoute: () => SplitRoute,
 } as any).lazy(() => import('./routes/_split/stores.lazy').then((d) => d.Route))
 
+const SplitLoginLazyRoute = SplitLoginLazyImport.update({
+  path: '/login',
+  getParentRoute: () => SplitRoute,
+} as any).lazy(() => import('./routes/_split/login.lazy').then((d) => d.Route))
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -74,18 +87,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/_split/login': {
+      id: '/_split/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof SplitLoginLazyImport
+      parentRoute: typeof SplitImport
+    }
     '/_split/stores': {
       id: '/_split/stores'
       path: '/stores'
       fullPath: '/stores'
       preLoaderRoute: typeof SplitStoresLazyImport
-      parentRoute: typeof SplitImport
-    }
-    '/_split/': {
-      id: '/_split/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof SplitIndexLazyImport
       parentRoute: typeof SplitImport
     }
   }
@@ -94,9 +107,10 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
+  IndexLazyRoute,
   SplitRoute: SplitRoute.addChildren({
+    SplitLoginLazyRoute,
     SplitStoresLazyRoute,
-    SplitIndexLazyRoute,
   }),
   AboutLazyRoute,
 })
@@ -109,10 +123,14 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/",
         "/_authenticated",
         "/_split",
         "/about"
       ]
+    },
+    "/": {
+      "filePath": "index.lazy.tsx"
     },
     "/_authenticated": {
       "filePath": "_authenticated.tsx"
@@ -120,19 +138,19 @@ export const routeTree = rootRoute.addChildren({
     "/_split": {
       "filePath": "_split.tsx",
       "children": [
-        "/_split/stores",
-        "/_split/"
+        "/_split/login",
+        "/_split/stores"
       ]
     },
     "/about": {
       "filePath": "about.lazy.tsx"
     },
-    "/_split/stores": {
-      "filePath": "_split/stores.lazy.tsx",
+    "/_split/login": {
+      "filePath": "_split/login.lazy.tsx",
       "parent": "/_split"
     },
-    "/_split/": {
-      "filePath": "_split/index.lazy.tsx",
+    "/_split/stores": {
+      "filePath": "_split/stores.lazy.tsx",
       "parent": "/_split"
     }
   }

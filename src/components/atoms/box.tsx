@@ -40,7 +40,7 @@ interface BoxProps extends VariantProps<typeof boxStyles> {
 
 const Box: React.FC<BoxProps> = ({ children, className, preset, ...props }) => {
   return (
-    <div className={cn(clsx(boxStyles({ preset, ...props }), className))}>
+    <div data-name={"box"} className={cn(clsx(boxStyles({ preset, ...props }), className))}>
       {children}
     </div>
   );

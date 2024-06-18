@@ -13,13 +13,13 @@ export const Route = createFileRoute("/_split")({
 function LayoutComponent() {
   return (
     <Box className="min-h-screen bg-paper">
-      <Box preset={"grid-split"} gap={6} className="w-full p-4">
-        <Box className="justify-end hidden h-full p-6 grow md:flex">
-          <img src={BillingIllustration} alt="My SVG" />
+      <Box preset={"grid-split"}className="w-full gap-16 p-4 ">
+        <Box className="justify-end hidden h-full max-w-sm m-auto mr-0 grow md:flex">
+          <img src={BillingIllustration} alt="My SVG" className="" />
         </Box>
         <Box
           preset={"stack-center"}
-          className="items-start h-full  grow"
+          className="h-full md:items-start grow"
           gap={8}
         >
           <Box
@@ -30,7 +30,7 @@ function LayoutComponent() {
             <Box
               preset={"stack-center"}
               gap={2}
-              className="justify-between max-w-sm"
+              className="justify-between"
             >
               <Link to={"/"}>
                 <Brand iconSize={"medium"} fontSize={"medium"} />

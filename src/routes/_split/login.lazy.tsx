@@ -5,13 +5,13 @@ import { Button } from "@/components/atoms/button";
 import Typography from "@/components/atoms/typography";
 import LoginForm from "@/components/forms/login-form";
 
-export const Route = createLazyFileRoute("/_split/")({
-  component: Index,
+export const Route = createLazyFileRoute("/_split/login")({
+  component: Login,
 });
 
-function Index() {
+function Login() {
   return (
-    <Box preset={"stack-center"} className="w-full max-w-sm bg-background">
+    <Box preset={"stack-center"} className="w-full max-w-sm">
       <Box preset={"stack-center"} gap={0} className="w-full">
         <Typography as={"h3"} variant={"h3"} className="w-full">
           Welcome back.
