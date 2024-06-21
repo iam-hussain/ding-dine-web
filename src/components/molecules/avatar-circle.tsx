@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/avatar";
 import { animateHover } from "@/lib/animate";
 
-function UserAvatar({
-  firstName,
+function AvatarCircle({
+  name,
   image = "",
   withAnimation = false,
 }: {
-  firstName: string;
+  name: string;
   image?: string;
   className?: string;
   withAnimation?: boolean;
@@ -27,16 +27,16 @@ function UserAvatar({
         className="w-8 h-8 cursor-pointer select-none bg-paper"
         tabIndex={-1}
       >
-        <AvatarImage src={image} alt={firstName} tabIndex={-1} />
+        <AvatarImage src={image} alt={name} tabIndex={-1} />
         <AvatarFallback
           className="text-base bg-primary text-primary-foreground"
           tabIndex={-1}
         >
-          {firstName.slice(0, 1)}
+          {name.slice(0, 1)}
         </AvatarFallback>
       </Avatar>
     </motion.div>
   );
 }
 
-export default UserAvatar;
+export default AvatarCircle;

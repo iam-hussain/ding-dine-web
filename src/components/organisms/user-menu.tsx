@@ -6,7 +6,7 @@ import { RootState } from "@/store";
 import { openUserBar } from "@/store/pageSlice";
 import { Separator } from "../atoms/separator";
 import { classNames } from "@/lib/utils";
-import UserBadge from "../molecules/user-badge";
+import AvatarBadge from "../molecules/avatar-badge";
 import Box from "@/components/atoms/box";
 import { Button } from "../atoms/button";
 import { animateDecorator } from "@/lib/animate";
@@ -51,11 +51,7 @@ function UserMenu({ className }: { className?: string }) {
       >
         <Box preset={"stack-start"}>
           <Box>
-            <UserBadge
-              firstName={user.firstName}
-              lastName={user?.lastName}
-              username={user.username}
-            />
+            <AvatarBadge hed={user.fullName} dek={user.username} />
             <Button
               variant={"transparent"}
               size={"icon"}

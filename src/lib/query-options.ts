@@ -14,7 +14,7 @@ export const meQueryOptions = () =>
     ...noRefetchConfigs,
   });
 
-export const storeQueryOptions = () =>
+export const storeQueryOptions = (slug: string) =>
   queryOptions({
     queryKey: ["store"],
     queryFn: () => fetcher("/store"),

@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +8,11 @@ import MenuItem from "@/components/molecules/menu-item";
 import { RootState } from "@/store";
 import { openSideBar } from "@/store/pageSlice";
 import { Separator } from "../atoms/separator";
-import Loader from "../molecules/loader";
-import UserAvatar from "../molecules/user-avatar";
 import { animateDecorator } from "@/lib/animate";
 import { classNames } from "@/lib/utils";
 import Box from "../atoms/box";
 import { Button } from "../atoms/button";
+import AvatarBadge from "../molecules/avatar-badge";
 
 type Menu = {
   icon: IconKey;
@@ -90,25 +88,10 @@ function SideMenu({ className }: { className?: string }) {
       >
         <Box preset={"stack-start"}>
           <Box>
-            {store && (
-              <div className="w-full h-auto px-4 m-0 mt-auto text-center">
-                <p className="pb-1 font-semibold text-md text-foreground/90">
-                  {store.name}
-                </p>
-                <div>
-                  {store.printDeck?.map((e: string, i: number) => (
-                    <p
-                      className="text-xs text-foreground/90"
-                      key={`printDeck_${i}`}
-                    >
-                      {e}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            )}
+            <AvatarBadge hed={store.name} dek={store.slug} />
+
             <Button
-              variant={"outline"}
+              variant={"transparent"}
               size={"icon"}
               onClick={handleSidebarToggle}
               animation={"scale"}
@@ -116,6 +99,7 @@ function SideMenu({ className }: { className?: string }) {
               <Icon name={"IoClose"} />
             </Button>
           </Box>
+          <Separator />
 
           <ScrollArea className="flex justify-end w-full py-4 grow">
             <Container className="flex flex-col gap-3 px-1 my-2 text-right">

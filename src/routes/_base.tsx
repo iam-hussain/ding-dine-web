@@ -23,11 +23,12 @@ export const Route = createFileRoute("/_base")({
 });
 
 function Base() {
+  const store = useSelector((state: RootState) => state.base.store);
   const topBarOpen = useSelector((state: RootState) => state.page.topBarOpen);
 
   return (
     <div className="main-wrapper">
-      <SideMenu />
+      {store && <SideMenu />}
       <main className={"page-main bg-paper"}>
         <TopMenu className="fixed z-30 block w-full bg-background" />
         <div

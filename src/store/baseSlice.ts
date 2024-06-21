@@ -80,6 +80,18 @@ export const pageSlice = createSlice({
       state.featureFlags = featureFlags || defaultFeatureFlags;
     },
 
+    setStore: (state, action: PayloadAction<any>) => {
+      const { tables, fees, taxes, featureFlags, ...store } =
+        action.payload || {};
+
+      state.store = store || null;
+      state.settings = {
+        tables: tables || [],
+        fees: fees || defaultFees,
+        taxes: taxes || [],
+      };
+      state.featureFlags = featureFlags || defaultFeatureFlags;
+    },
     setUser: (state, action: PayloadAction<any | null>) => {
       console.log({ action });
       state.user = action.payload;
@@ -113,6 +125,7 @@ export const pageSlice = createSlice({
 
 export const {
   setBaseData,
+  setStore,
   setUser,
   setOrder,
   setOrders,

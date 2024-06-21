@@ -19,6 +19,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as SplitStoreImport } from './routes/_split/store'
 import { Route as SplitLoginImport } from './routes/_split/login'
 import { Route as BaseDashboardIndexImport } from './routes/_base/dashboard/index'
+import { Route as BaseSlugIndexImport } from './routes/_base/$slug/index'
 
 // Create/Update Routes
 
@@ -59,6 +60,11 @@ const SplitLoginRoute = SplitLoginImport.update({
 
 const BaseDashboardIndexRoute = BaseDashboardIndexImport.update({
   path: '/dashboard/',
+  getParentRoute: () => BaseRoute,
+} as any)
+
+const BaseSlugIndexRoute = BaseSlugIndexImport.update({
+  path: '/$slug/',
   getParentRoute: () => BaseRoute,
 } as any)
 
@@ -115,6 +121,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplitStoreImport
       parentRoute: typeof SplitImport
     }
+    '/_base/$slug/': {
+      id: '/_base/$slug/'
+      path: '/$slug'
+      fullPath: '/$slug'
+      preLoaderRoute: typeof BaseSlugIndexImport
+      parentRoute: typeof BaseImport
+    }
     '/_base/dashboard/': {
       id: '/_base/dashboard/'
       path: '/dashboard'
@@ -129,7 +142,10 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  BaseRoute: BaseRoute.addChildren({ BaseDashboardIndexRoute }),
+  BaseRoute: BaseRoute.addChildren({
+    BaseSlugIndexRoute,
+    BaseDashboardIndexRoute,
+  }),
   SplitRoute: SplitRoute.addChildren({ SplitLoginRoute, SplitStoreRoute }),
   AboutRoute,
   LogoutRoute,
@@ -156,6 +172,7 @@ export const routeTree = rootRoute.addChildren({
     "/_base": {
       "filePath": "_base.tsx",
       "children": [
+        "/_base/$slug/",
         "/_base/dashboard/"
       ]
     },
@@ -179,6 +196,10 @@ export const routeTree = rootRoute.addChildren({
     "/_split/store": {
       "filePath": "_split/store.tsx",
       "parent": "/_split"
+    },
+    "/_base/$slug/": {
+      "filePath": "_base/$slug/index.tsx",
+      "parent": "/_base"
     },
     "/_base/dashboard/": {
       "filePath": "_base/dashboard/index.tsx",

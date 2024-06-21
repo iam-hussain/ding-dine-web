@@ -9,8 +9,7 @@ import Icon from "@/components/atoms/icon";
 import { RootState } from "@/store";
 import { openSideBar, openTopBar, openUserBar } from "@/store/pageSlice";
 
-import BrandSideBySide from "../atoms/brands/side-by-side";
-import UserAvatar from "@/components/molecules/user-avatar";
+import AvatarCircle from "@/components/molecules/avatar-circle";
 import Box from "@/components/atoms/box";
 import Brand from "@/components/atoms/brand";
 import { ThemeModeToggle } from "./theme-mode-toggle";
@@ -60,7 +59,7 @@ function TopMenu({ className }: { className?: string }) {
   const sideBarOpen = useSelector((state: RootState) => state.page.sideBarOpen);
   const topBarOpen = useSelector((state: RootState) => state.page.topBarOpen);
   const userBarOpen = useSelector((state: RootState) => state.page.userBarOpen);
-
+  const store = useSelector((state: RootState) => state.base.store);
   const user = useSelector((state: RootState) => state.base.user);
 
   const callback = useCallback(
@@ -98,13 +97,16 @@ function TopMenu({ className }: { className?: string }) {
       animate={shouldHide ? "show" : "hide"}
     >
       <Box className="w-auto" gap={6}>
-        <Button
-          variant={"outline"}
-          size={"icon"}
-          onClick={() => dispatch(openSideBar())}
-        >
-          <Icon name={sideBarOpen ? "IoClose" : "HiMenuAlt2"} />
-        </Button>
+        {store && (
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            onClick={() => dispatch(openSideBar())}
+          >
+            <Icon name={sideBarOpen ? "IoClose" : "HiMenuAlt2"} />
+          </Button>
+        )}
+
         <Brand fontSize={"small"} iconSize={"small"} />
       </Box>
 
@@ -139,11 +141,7 @@ function TopMenu({ className }: { className?: string }) {
           variant={"transparent"}
           onClick={() => dispatch(openUserBar())}
         >
-          <UserAvatar
-            firstName={user.firstName}
-            image={""}
-            withAnimation={true}
-          />
+          <AvatarCircle name={user.firstName} withAnimation={true} />
         </Button>
       </Box>
     </motion.nav>
