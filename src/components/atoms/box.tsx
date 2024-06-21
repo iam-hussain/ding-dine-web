@@ -4,13 +4,14 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 
-const boxStyles = cva("", {
+const boxStyles = cva("w-full", {
   variants: {
     preset: {
       "row-center": "flex flex-row justify-center items-center",
       "row-start": "flex flex-row justify-start items-center",
       "row-space-between": "flex flex-row justify-between items-center",
       "stack-center": "flex flex-col justify-center items-center",
+      "stack-start": "flex flex-col justify-center items-start",
       "stack-top-center": "flex flex-col justify-start items-center",
       "grid-center": "grid justify-center items-center",
       "grid-top-center": "grid justify-start items-center",
@@ -40,7 +41,10 @@ interface BoxProps extends VariantProps<typeof boxStyles> {
 
 const Box: React.FC<BoxProps> = ({ children, className, preset, ...props }) => {
   return (
-    <div data-name={"box"} className={cn(clsx(boxStyles({ preset, ...props }), className))}>
+    <div
+      data-name={"box"}
+      className={cn(clsx(boxStyles({ preset, ...props }), className))}
+    >
       {children}
     </div>
   );

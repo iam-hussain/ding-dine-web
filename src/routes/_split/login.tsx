@@ -1,17 +1,37 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 import Box from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
 import Typography from "@/components/atoms/typography";
-import LoginForm from "@/components/forms/login-form";
+import LoginForm from "@/components/forms/login";
+import { z } from "zod";
+import { cookieNames, setCookieAsync } from "@/lib/cookies";
+import { shouldNotBeLoggedIn } from "@/lib/middleware";
 
-export const Route = createLazyFileRoute("/_split/login")({
+export const Route = createFileRoute("/_split/login")({
+  beforeLoad: shouldNotBeLoggedIn,
+  validateSearch: z.object({
+    redirect: z.string().optional(),
+  }),
   component: Login,
 });
 
 function Login() {
+  const navigate = useNavigate();
+  const search = Route.useSearch();
+  const redirect = search.redirect;
+
+  const onSuccessHandler = async (token: string) => {
+    await setCookieAsync(cookieNames.access_token, token);
+    if (redirect) {
+      navigate({ to: redirect });
+    } else {
+      navigate({ to: "/store" });
+    }
+  };
+
   return (
-    <Box preset={"stack-center"} className="w-full max-w-sm">
+    <Box preset={"stack-center"} className="w-full max-w-sm bg-background">
       <Box preset={"stack-center"} gap={0} className="w-full">
         <Typography as={"h3"} variant={"h3"} className="w-full">
           Welcome back.
@@ -21,7 +41,7 @@ function Login() {
         </Typography>
       </Box>
       <Box preset={"stack-center"} className="w-full">
-        <LoginForm />
+        <LoginForm onSuccess={onSuccessHandler} />
       </Box>
       <Box preset={"stack-center"} className="w-full mt-4" gap={2}>
         <Typography as={"p"} variant={"sub"} className="w-full">

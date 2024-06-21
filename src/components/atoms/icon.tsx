@@ -165,7 +165,9 @@ export interface IconProps extends React.SVGAttributes<SVGAElement> {
 
 const Icon = ({ name, ...props }: IconProps) => {
   const IconComp = icons[name];
-  return <IconComp {...props} className={cn(props.className || "")} />;
+  return (
+    <IconComp {...props} className={cn("h-4 w-4", props.className || "")} />
+  );
 };
 
 Icon.displayName = "Icon";

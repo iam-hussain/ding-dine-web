@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  formValidationSetter,
+  setFormValidationErrors,
   ProductCreateSchema,
   ProductCreateSchemaType,
 } from "@iam-hussain/qd-copilot";
@@ -95,7 +95,7 @@ function ProductForm({
       }
     },
     onError: (err) => {
-      const errors = formValidationSetter(err, setError);
+      const errors = setFormValidationErrors(err, setError);
       if (!errors.length) {
         if (id) {
           toast.error(

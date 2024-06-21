@@ -7,6 +7,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function classNames(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
 export function extractClassNames(className?: string | string[]) {
   if (!className || !className.length) {
     return [""];

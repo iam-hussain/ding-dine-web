@@ -7,9 +7,13 @@ import { useWindowScroll } from "react-use";
 import { Button } from "@/components/atoms/button";
 import Icon from "@/components/atoms/icon";
 import { RootState } from "@/store";
-import { openSideBar, openTopBar } from "@/store/pageSlice";
+import { openSideBar, openTopBar, openUserBar } from "@/store/pageSlice";
 
 import BrandSideBySide from "../atoms/brands/side-by-side";
+import UserAvatar from "@/components/molecules/user-avatar";
+import Box from "@/components/atoms/box";
+import Brand from "@/components/atoms/brand";
+import { ThemeModeToggle } from "./theme-mode-toggle";
 
 const closerButton = {
   initial: {},
@@ -20,16 +24,23 @@ const closerButton = {
   },
   out: {
     opacity: 1,
-    y: 70,
+    y: 60,
+    x: 45,
+    transition: {
+      duration: 0.6,
+    },
   },
   in: {
     y: 0,
+    transition: {
+      duration: 0.6,
+    },
   },
 };
 
 const animator = {
   hide: {
-    y: -54,
+    y: -64,
     transition: {
       duration: 0.3,
     },
@@ -44,14 +55,17 @@ const animator = {
 
 function TopMenu({ className }: { className?: string }) {
   const { y } = useWindowScroll();
+  const dispatch = useDispatch();
   const [scrollDirection, setScrollDirection] = useState("IDEAL");
   const sideBarOpen = useSelector((state: RootState) => state.page.sideBarOpen);
   const topBarOpen = useSelector((state: RootState) => state.page.topBarOpen);
-  const dispatch = useDispatch();
+  const userBarOpen = useSelector((state: RootState) => state.page.userBarOpen);
+
+  const user = useSelector((state: RootState) => state.base.user);
 
   const callback = useCallback(
     (event: any) => {
-      if (sideBarOpen) {
+      if (sideBarOpen || userBarOpen) {
         return setScrollDirection("IDEAL");
       }
       if ((event.wheelDelta && event.wheelDelta > 0) || event.deltaY < 0) {
@@ -60,7 +74,7 @@ function TopMenu({ className }: { className?: string }) {
         setScrollDirection("DOWN");
       }
     },
-    [sideBarOpen]
+    [sideBarOpen, userBarOpen]
   );
 
   const shouldHide = useMemo(() => {
@@ -75,7 +89,7 @@ function TopMenu({ className }: { className?: string }) {
   return (
     <motion.nav
       className={clsx(
-        "border-b border-paper w-full h-[50px] flex justify-center align-middle items-center fixed",
+        "border-b w-full h-[60px] align-middle items-center fixed px-4 flex justify-between",
         className
       )}
       initial="show"
@@ -83,46 +97,55 @@ function TopMenu({ className }: { className?: string }) {
       transition={{ type: "spring", stiffness: 100 }}
       animate={shouldHide ? "show" : "hide"}
     >
-      <Button
-        variant={"transparent"}
-        className={clsx("flex font-normal absolute left-2", {
-          "text-inactive-foreground": sideBarOpen,
-          "text-primary": !sideBarOpen,
-        })}
-        onClick={() => dispatch(openSideBar())}
-      >
-        <Icon
-          name={sideBarOpen ? "IoClose" : "HiMenuAlt2"}
-          className={clsx("h-5 w-5")}
-        />
-      </Button>
-      <div className="flex gap-4 m-auto justify-center">
-        <BrandSideBySide
-          className={clsx("h-[40px] py-2 md:ml-0 ml-2 w-auto", {})}
-        />
-      </div>
-
-      <motion.div
-        initial="initial"
-        whileTap="pressed"
-        transition={{ type: "spring", stiffness: 100 }}
-        animate={topBarOpen ? "in" : "out"}
-        variants={closerButton}
-        className="absolute right-4 w-auto h-auto hidden md:flex"
-      >
+      <Box className="w-auto" gap={6}>
         <Button
-          variant={"accent"}
-          className={clsx("flex font-normal p-2")}
-          onClick={() => {
-            if (!topBarOpen) {
-              setScrollDirection("UP");
-            }
-            dispatch(openTopBar());
-          }}
+          variant={"outline"}
+          size={"icon"}
+          onClick={() => dispatch(openSideBar())}
         >
-          <Icon name={topBarOpen ? "BiShow" : "BiHide"} className={"h-5 w-5"} />
+          <Icon name={sideBarOpen ? "IoClose" : "HiMenuAlt2"} />
         </Button>
-      </motion.div>
+        <Brand fontSize={"small"} iconSize={"small"} />
+      </Box>
+
+      <Box className="w-auto" gap={2}>
+        <ThemeModeToggle />
+        <motion.div
+          initial="initial"
+          whileTap="pressed"
+          transition={{ type: "spring", stiffness: 100 }}
+          animate={topBarOpen ? "in" : "out"}
+          variants={closerButton}
+          className="hidden w-auto h-auto right-4 md:flex"
+          tabIndex={-1}
+        >
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            animation={"scale"}
+            onClick={() => {
+              if (!topBarOpen) {
+                setScrollDirection("UP");
+              }
+              dispatch(openTopBar());
+            }}
+          >
+            <Icon name={topBarOpen ? "BiShow" : "BiHide"} />
+          </Button>
+        </motion.div>
+
+        <Button
+          size={"none"}
+          variant={"transparent"}
+          onClick={() => dispatch(openUserBar())}
+        >
+          <UserAvatar
+            firstName={user.firstName}
+            image={""}
+            withAnimation={true}
+          />
+        </Button>
+      </Box>
     </motion.nav>
   );
 }

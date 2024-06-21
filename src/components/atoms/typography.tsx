@@ -4,15 +4,18 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 
-const typographyStyles = cva("w-full", {
+const typographyStyles = cva("w-auto text-foreground", {
   variants: {
     variant: {
+      body: "text-base",
       h1: "text-5xl font-bold",
       h2: "text-4xl font-bold",
       h3: "text-2xl font-semibold tracking-tight",
       h4: "text-xl font-normal tracking-tight",
-      sub: "text-md font-sans",
-      body: "leading-7",
+      h6: "text-sm font-semibold",
+      sub: "text-sm text-foreground/80",
+      error: "text-[0.8rem] font-medium mt-1 text-destructive",
+
       caption: "text-sm font-light",
       overline: "text-xs uppercase tracking-wide",
       blockquote: "mt-6 border-l-2 pl-6 italic",
@@ -22,13 +25,14 @@ const typographyStyles = cva("w-full", {
       tableCell: "border px-4 py-2 text-left",
     },
     align: {
-      'default': '',
+      default: "",
       left: "text-left",
       center: "text-center",
       right: "text-right",
       justify: "text-justify",
     },
     color: {
+      default: "",
       primary: "text-primary",
       secondary: "text-secondary",
       accent: "text-accent",
@@ -36,7 +40,6 @@ const typographyStyles = cva("w-full", {
       warning: "text-warning",
       info: "text-info",
       success: "text-success",
-      default: "text-default",
       light: "text-foreground/80",
     },
   },

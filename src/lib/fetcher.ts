@@ -33,6 +33,7 @@ const fetcher = async (
       }
     );
     const responseData = await response.json();
+
     return responseData;
   } catch (err) {
     console.error(err);

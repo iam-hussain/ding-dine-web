@@ -80,6 +80,11 @@ export const pageSlice = createSlice({
       state.featureFlags = featureFlags || defaultFeatureFlags;
     },
 
+    setUser: (state, action: PayloadAction<any | null>) => {
+      console.log({ action });
+      state.user = action.payload;
+      state.authenticated = Boolean(action.payload?.id);
+    },
     setOrder: (state, action: PayloadAction<OrderAPIType | null>) => {
       state.order = action.payload;
     },
@@ -108,6 +113,7 @@ export const pageSlice = createSlice({
 
 export const {
   setBaseData,
+  setUser,
   setOrder,
   setOrders,
   setRecentOrders,

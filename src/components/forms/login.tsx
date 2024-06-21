@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  formValidationSetter,
+  setFormValidationErrors,
+  setUnexpectedFormError,
   SignInSchema,
   SignInSchemaType,
 } from "@iam-hussain/qd-copilot";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/atoms/button";
@@ -18,34 +18,33 @@ import {
   FormMessage,
 } from "@/components/atoms/form";
 import { Input } from "@/components/atoms/input";
-import { cookieNames, setCookieAsync } from "@/lib/cookies";
 import fetcher from "@/lib/fetcher";
+import Typography from "../atoms/typography";
 
 const defaultValues: Partial<SignInSchemaType> = {
   email: "",
   password: "",
 };
 
-function LoginForm() {
-  const router = useRouter();
+function LoginForm({ onSuccess }: { onSuccess?: (token: string) => void }) {
   const form = useForm<SignInSchemaType>({
     resolver: zodResolver(SignInSchema),
     defaultValues,
     mode: "onSubmit",
   });
-  const { control, handleSubmit, setError, formState } = form;
-  const { isDirty, isSubmitting } = formState;
-
+  const { control, handleSubmit, setError, formState, reset } = form;
+  const { isDirty, isSubmitting, errors } = formState;
   const mutation = useMutation({
     mutationFn: (variables) =>
       fetcher.post("/authentication/sign-in", variables),
     onSuccess: async (data: any) => {
-      if (data?.access_token) {
-        await setCookieAsync(cookieNames.access_token, data.access_token);
-        router.history.push(data?.includes_store ? "/store" : "/stores");
+      if (data?.access_token && onSuccess) {
+        onSuccess(data.access_token);
+      } else {
+        setUnexpectedFormError(setError);
       }
     },
-    onError: (err) => formValidationSetter(err, setError),
+    onError: (err) => setFormValidationErrors(err, setError),
   });
 
   async function onSubmit(variables: SignInSchemaType) {
@@ -94,6 +93,9 @@ function LoginForm() {
           >
             Sign In
           </Button>
+          {errors.root && (
+            <Typography variant={"error"}>{errors.root.message}</Typography>
+          )}
         </div>
       </form>
     </Form>

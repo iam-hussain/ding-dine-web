@@ -1,15 +1,14 @@
 import clsx from "clsx";
-import React from "react";
 import { MutatingDots } from "react-loader-spinner";
 
 function Loader({ minFullScreen = false }: { minFullScreen?: boolean }) {
   return (
     <div
       className={clsx(
-        "flex flex-col justify-center align-middle items-center w-full h-full",
+        "flex flex-col justify-center align-middle items-center w-full h-full bg-background",
         {
           "min-h-screen": minFullScreen,
-        },
+        }
       )}
     >
       <MutatingDots

@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CategoryCreateSchema,
   CategoryCreateSchemaType,
-  formValidationSetter,
+  setFormValidationErrors,
 } from "@iam-hussain/qd-copilot";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -79,7 +79,7 @@ function CategoryForm({
       }
     },
     onError: (err) => {
-      const errors = formValidationSetter(err, setError);
+      const errors = setFormValidationErrors(err, setError);
       if (!errors.length) {
         if (id) {
           toast.error(

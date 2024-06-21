@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const pageSlice = createSlice({
   name: "page",
   initialState: {
+    userBarOpen: false,
     sideBarOpen: false,
     topBarOpen: true,
   },
@@ -13,9 +14,12 @@ export const pageSlice = createSlice({
     openTopBar: (state) => {
       state.topBarOpen = !state.topBarOpen;
     },
+    openUserBar: (state) => {
+      state.userBarOpen = !state.userBarOpen;
+    },
   },
 });
 
-export const { openSideBar, openTopBar } = pageSlice.actions;
+export const { openSideBar, openTopBar, openUserBar } = pageSlice.actions;
 
 export default pageSlice.reducer;
