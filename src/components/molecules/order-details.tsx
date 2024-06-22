@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 
 import useOrderQuery from "@/hooks/useOrderQuery";
@@ -19,13 +18,13 @@ function OrderDetails({ order }: { order: OrderAPIType }) {
   const { refresh } = useOrderQuery();
 
   return (
-    <div className="flex flex-col gap-2 px-4 justify-center align-middle items-center">
-      <div className="flex justify-between align-middle items-center w-full gap-2">
-        <div className="flex w-max justify-center items-center align-middle">
-          <div className="flex justify-center align-middle items-center gap-2">
+    <div className="flex flex-col items-center justify-center gap-2 px-4 align-middle">
+      <div className="flex items-center justify-between w-full gap-2 align-middle">
+        <div className="flex items-center justify-center align-middle w-max">
+          <div className="flex items-center justify-center gap-2 align-middle">
             <p className="text-foreground/80 w-max">
               Order:{" "}
-              <span className="text-foreground font-medium text-lg">
+              <span className="text-lg font-medium text-foreground">
                 #{order?.shortId}
                 {order?.table?.key ? ` / ${order?.table?.key}` : ""}
               </span>
@@ -35,7 +34,7 @@ function OrderDetails({ order }: { order: OrderAPIType }) {
               className="p-0 hover:scale-110 active:scale-95"
               onClick={() => order?.shortId && refresh(order?.shortId)}
             >
-              <Icon name="IoReloadCircleSharp" className="h-8 w-8" />
+              <Icon name="IoReloadCircleSharp" className="w-8 h-8" />
             </Button>
           </div>
 
@@ -45,8 +44,8 @@ function OrderDetails({ order }: { order: OrderAPIType }) {
             </p>
           )}
         </div>
-        <div className="flex flex-col justify-center align-middle items-end gap-2">
-          <div className="flex gap-2 flex-wrap justify-end align-middle items-end">
+        <div className="flex flex-col items-end justify-center gap-2 align-middle">
+          <div className="flex flex-wrap items-end justify-end gap-2 align-middle">
             <OrderStatusIcon
               value={order.status}
               classNames="text-foreground/90"
@@ -60,8 +59,8 @@ function OrderDetails({ order }: { order: OrderAPIType }) {
               />
             )}
           </div>
-          <p className="text-foreground/90 font-medium text-sm w-full text-right">
-            <span className="text-foreground/80 text-xs">
+          <p className="w-full text-sm font-medium text-right text-foreground/90">
+            <span className="text-xs text-foreground/80">
               {showUpdatedDate && order?.updatedAt
                 ? "Updated @ "
                 : "Created @ "}

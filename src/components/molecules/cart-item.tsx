@@ -1,6 +1,4 @@
 import { ItemCreateSchemaType } from "@iam-hussain/qd-copilot";
-import React from "react";
-
 import { Button } from "@/components/atoms/button";
 import Icon from "@/components/atoms/icon";
 
@@ -20,9 +18,9 @@ function CartItem({
   onRemoveClick,
 }: CartItemProps) {
   return (
-    <li className="flex justify-center items-center align-middle gap-4 rounded-md text-base font-medium text-inactive w-full">
+    <li className="flex items-center justify-center w-full gap-4 text-base font-medium align-middle rounded-md text-inactive">
       <div className="grow">
-        <p className=" text-left text-foreground">{item.title}</p>
+        <p className="text-left  text-foreground">{item.title}</p>
 
         <p className="text-sm">
           {"Amount: "}
@@ -35,7 +33,7 @@ function CartItem({
 
       <div className="grid grid-cols-3 min-w-[90px]">
         <Button
-          className="p-2 rounded-none rounded-tl-lg rounded-bl-lg shadow-none h-full"
+          className="h-full p-2 rounded-none rounded-tl-lg rounded-bl-lg shadow-none"
           variant={"default"}
           disabled={item.quantity === 1}
           onClick={() => onSubClick(index)}
@@ -43,11 +41,11 @@ function CartItem({
         >
           <Icon name="RiSubtractFill" />
         </Button>
-        <span className="select-none py-2 h-full bg-primary text-primary-foreground text-center">
+        <span className="h-full py-2 text-center select-none bg-primary text-primary-foreground">
           {item.quantity}
         </span>
         <Button
-          className="p-2 rounded-none rounded-tr-lg rounded-br-lg shadow-none h-full"
+          className="h-full p-2 rounded-none rounded-tr-lg rounded-br-lg shadow-none"
           variant={"default"}
           disabled={item.quantity > 10000}
           onClick={() => onAddClick(index)}
@@ -56,7 +54,7 @@ function CartItem({
           <Icon name="IoMdAdd" />
         </Button>
       </div>
-      <span className="min-w-20 flex justify-end text-foreground">
+      <span className="flex justify-end min-w-20 text-foreground">
         {Number(item.price * item.quantity).toLocaleString("en-IN", {
           style: "currency",
           currency: "INR",
@@ -68,7 +66,7 @@ function CartItem({
         onClick={() => onRemoveClick(index)}
         type="button"
       >
-        <Icon name="RiDeleteBinLine" className="h-4 w-4 text-destructive" />
+        <Icon name="RiDeleteBinLine" className="w-4 h-4 text-destructive" />
       </Button>
     </li>
   );

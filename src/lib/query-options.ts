@@ -1,4 +1,4 @@
-import { queryOptions, useMutation } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 import fetcher from "./fetcher";
 
 const noRefetchConfigs = {
@@ -14,7 +14,7 @@ export const meQueryOptions = () =>
     ...noRefetchConfigs,
   });
 
-export const storeQueryOptions = (slug: string) =>
+export const storeQueryOptions = () =>
   queryOptions({
     queryKey: ["store"],
     queryFn: () => fetcher("/store"),

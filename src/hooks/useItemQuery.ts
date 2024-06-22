@@ -11,7 +11,7 @@ function useItemQuery() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     mutationFn: ({ id, tokenShortId, ...variables }) =>
       fetcher.post(`/store/order/item/${id}`, variables),
-    onSuccess: async (order: any, variables: any) => {
+    onSuccess: async (_order: any, variables: any) => {
       queryClient.invalidateQueries({
         queryKey: ["tokens"],
       });

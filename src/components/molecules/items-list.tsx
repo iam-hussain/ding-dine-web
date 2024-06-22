@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Separator } from "../atoms/separator";
 
 function ItemsList({ items, label }: { items: any[]; label?: string }) {
@@ -10,7 +8,7 @@ function ItemsList({ items, label }: { items: any[]; label?: string }) {
   return (
     <ul className="flex flex-col gap-2">
       {label && (
-        <div className="flex flex-col justify-start text-base uppercase pb-2">
+        <div className="flex flex-col justify-start pb-2 text-base uppercase">
           <span className="bg-background text-foreground/80">{label}</span>
           <Separator />
         </div>
@@ -19,13 +17,13 @@ function ItemsList({ items, label }: { items: any[]; label?: string }) {
       {items.map((item: any) => (
         <li
           key={item.id}
-          className="flex justify-center items-center align-middle gap-2 text-base font-medium text-inactive w-full"
+          className="flex items-center justify-center w-full gap-2 text-base font-medium align-middle text-inactive"
         >
           <div className="grow">
-            <p className=" text-left text-foreground">{item.title}</p>
+            <p className="text-left  text-foreground">{item.title}</p>
           </div>
 
-          <div className="flex justify-end align-middle items-center gap-2 min-w-28">
+          <div className="flex items-center justify-end gap-2 align-middle min-w-28">
             <span className="text-sm">
               {Number(item.price).toLocaleString("en-IN", {
                 style: "currency",
@@ -33,11 +31,11 @@ function ItemsList({ items, label }: { items: any[]; label?: string }) {
               })}
             </span>
             <span>x</span>
-            <span className="select-none text-foreground text-center">
+            <span className="text-center select-none text-foreground">
               {item.quantity}
             </span>
           </div>
-          <span className="min-w-20 flex justify-end text-foreground">
+          <span className="flex justify-end min-w-20 text-foreground">
             {Number(item.price * item.quantity).toLocaleString("en-IN", {
               style: "currency",
               currency: "INR",

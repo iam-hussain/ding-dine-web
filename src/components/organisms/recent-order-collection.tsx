@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 
 import useOrderQuery from "@/hooks/useOrderQuery";
@@ -17,7 +16,7 @@ function RecentOrderCollection() {
   };
 
   return (
-    <div className="flex justify-center align-middle items-center gap-2">
+    <div className="flex items-center justify-center gap-2 align-middle">
       <p className="text-sm font-medium text-foreground/60">Recent Orders: </p>
       {recentOrders.map((order) => (
         <RecentOrderItem key={order.id} order={order} onClick={handleOnClick} />

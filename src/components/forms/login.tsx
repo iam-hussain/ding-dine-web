@@ -32,7 +32,7 @@ function LoginForm({ onSuccess }: { onSuccess?: (token: string) => void }) {
     defaultValues,
     mode: "onSubmit",
   });
-  const { control, handleSubmit, setError, formState, reset } = form;
+  const { control, handleSubmit, setError, formState } = form;
   const { isDirty, isSubmitting, errors } = formState;
   const mutation = useMutation({
     mutationFn: (variables) =>

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import useItemQuery from "@/hooks/useItemQuery";
 import useTokenQuery from "@/hooks/useTokenQuery";
@@ -9,8 +9,8 @@ import { Button } from "../atoms/button";
 import Icon from "../atoms/icon";
 import CountDown from "./count-down";
 import CountUp from "./count-up";
-import { orderTypeObject } from "./order-type-icon";
 import TokenItem from "./token-item";
+import { ORDER_TYPE_MAP } from "@/lib/constant";
 
 export interface TokenCardProps {
   token: Omit<TokenType, "items">;
@@ -87,11 +87,11 @@ function TokenCard({ token, items, variant }: TokenCardProps) {
         }
       )}
     >
-      <div className="pb-1 border-b border-foreground/50 flex">
-        <div className="w-full flex flex-col gap-2">
+      <div className="flex pb-1 border-b border-foreground/50">
+        <div className="flex flex-col w-full gap-2">
           <div className="flex justify-between w-full gap-2">
-            <div className="flex flex-col justify-start align-middle items-start">
-              <div className="flex justify-start align-middle items-center gap-2 w-full">
+            <div className="flex flex-col items-start justify-start align-middle">
+              <div className="flex items-center justify-start w-full gap-2 align-middle">
                 <p className="text-lg font-medium ">#{token.displayId}</p>
                 {variant === "placed" && (
                   <Button
@@ -109,19 +109,19 @@ function TokenCard({ token, items, variant }: TokenCardProps) {
                   </Button>
                 )}
               </div>
-              <p className="uppercase text-sm">
-                {orderTypeObject[token.order.type]}
+              <p className="text-sm uppercase">
+                {ORDER_TYPE_MAP[token.order.type]}
               </p>
             </div>
-            <div className="flex flex-col justify-center align-middle items-end">
-              <p className="font-medium text-sm text-foreground/70">
+            <div className="flex flex-col items-end justify-center align-middle">
+              <p className="text-sm font-medium text-foreground/70">
                 Order:{" "}
                 <span className="text-foreground/90">
                   #{token.order.shortId}
                 </span>
               </p>
               {token.kitchenCategory?.name && (
-                <p className="text-foreground/90 font-medium text-base">
+                <p className="text-base font-medium text-foreground/90">
                   {token.kitchenCategory?.name}
                 </p>
               )}
@@ -133,7 +133,7 @@ function TokenCard({ token, items, variant }: TokenCardProps) {
           </div>
         </div>
       </div>
-      <div className="flex gap-4 flex-col">
+      <div className="flex flex-col gap-4">
         {Boolean(items.scheduled.length) && (
           <div className="flex flex-col">
             {items.scheduled.map((item, i) => (

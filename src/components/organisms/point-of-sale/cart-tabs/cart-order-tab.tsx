@@ -1,6 +1,5 @@
 import { OrderUpsertSchemaType } from "@iam-hussain/qd-copilot";
 import clsx from "clsx";
-import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useSelector } from "react-redux";
 
@@ -44,7 +43,7 @@ function CartOrderTab({ className }: { className?: string }) {
     <div className={clsx("flex flex-col h-full gap-1", className)}>
       <div className="flex justify-between gap-4 px-4">
         <OrderTypeSelect />
-        <div className="flex justify-between align-middle items-center gap-2">
+        <div className="flex items-center justify-between gap-2 align-middle">
           <TableSelection />
           {enableCustomerAdding && (
             <ButtonToolTip
@@ -59,7 +58,7 @@ function CartOrderTab({ className }: { className?: string }) {
       <ScrollArea className="w-full flex justify-end grow bg-background px-4 h-[300px] cart">
         <ul className="flex flex-col gap-2">
           {items.length === 0 ? (
-            <li className="text-sm text-foreground/80 text-center w-full py-6">
+            <li className="w-full py-6 text-sm text-center text-foreground/80">
               No items found
             </li>
           ) : (
@@ -79,9 +78,9 @@ function CartOrderTab({ className }: { className?: string }) {
         {/* {drafted.length && <DraftItems items={drafted} />} */}
       </ScrollArea>
       <Separator className="my-2 mt-4" />
-      <div className="flex justify-center align-middle items-center gap-4 flex-col text-base bg-background select-none h-auto px-6">
+      <div className="flex flex-col items-center justify-center h-auto gap-4 px-6 text-base align-middle select-none bg-background">
         <CartSummary items={items as any} />
-        <div className="flex gap-2 w-full">
+        <div className="flex w-full gap-2">
           <DeleteOrder />
           <DraftOrder />
           <ScheduleDispatch />

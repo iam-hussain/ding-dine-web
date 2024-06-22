@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import React from "react";
 
 import {
   Tooltip,
@@ -11,14 +10,7 @@ import { cn } from "@/lib/utils";
 import { ORDER_TYPE } from "@/types";
 
 import Icon, { IconKey } from "../atoms/icon";
-
-export const orderTypeObject = {
-  DINING: "Dine In",
-  TAKE_AWAY: "Take Away",
-  PICK_UP: "Express",
-  DELIVERY: "Delivery",
-  PLATFORM: "Platform",
-};
+import { ORDER_TYPE_MAP } from "@/lib/constant";
 
 function OrderTypeIcon({
   value,
@@ -63,8 +55,8 @@ function OrderTypeIcon({
             "text-pink-600": value === ORDER_TYPE.DELIVERY,
             "text-yellow-600": value === ORDER_TYPE.PLATFORM,
           },
-          classNames,
-        ),
+          classNames
+        )
       )}
     />
   );
@@ -74,11 +66,11 @@ function OrderTypeIcon({
       <div
         className={clsx(
           "w-fit min-h-[40px] flex justify-center align-middle items-center gap-2 uppercase border px-2 py-1 rounded-lg min-w-[145px] bg-background",
-          wrapperClassNames,
+          wrapperClassNames
         )}
       >
         <IconComp />
-        <p className="text-sm font-medium">{orderTypeObject[value]}</p>
+        <p className="text-sm font-medium">{ORDER_TYPE_MAP[value]}</p>
       </div>
     );
   }
@@ -91,7 +83,7 @@ function OrderTypeIcon({
             <IconComp />
           </TooltipTrigger>
           <TooltipContent className="bg-bw-foreground text-bw">
-            <p className="text-base font-medium">{orderTypeObject[value]}</p>
+            <p className="text-base font-medium">{ORDER_TYPE_MAP[value]}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

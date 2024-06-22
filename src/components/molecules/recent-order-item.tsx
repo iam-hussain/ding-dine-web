@@ -1,5 +1,3 @@
-import React from "react";
-
 import { OrderAPIType } from "@/types";
 
 import { Button } from "../atoms/button";

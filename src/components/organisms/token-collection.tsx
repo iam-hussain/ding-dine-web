@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 
 import { RootState } from "@/store";
@@ -22,13 +21,13 @@ function TokenCollection({
 
   if (tokens.length === 0) {
     return (
-      <p className="text-sm text-foreground/80 text-center w-full py-8 m-auto grow grid-cols-12">
+      <p className="w-full grid-cols-12 py-8 m-auto text-sm text-center text-foreground/80 grow">
         {noItemMessage || "No tokens found"}
       </p>
     );
   }
   return (
-    <div className="flex flex-wrap align-top items-start gap-6 m-0 justify-center">
+    <div className="flex flex-wrap items-start justify-center gap-6 m-0 align-top">
       {tokens.map(({ items, ...token }) => (
         <TokenCard
           key={token.id}

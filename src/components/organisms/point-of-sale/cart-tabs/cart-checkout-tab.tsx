@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import React from "react";
 import { useSelector } from "react-redux";
 
 import { Button } from "@/components/atoms/button";
@@ -18,9 +17,9 @@ export default function CartCheckOutTab({ className }: { className?: string }) {
     <div className={clsx("flex flex-col h-full gap-2", className)}>
       <ScrollArea className="w-full flex justify-end grow bg-background px-4 h-[300px] cart">
         <div className="flex flex-col h-full">
-          <div className="flex flex-col gap-4 justify-between h-full">
+          <div className="flex flex-col justify-between h-full gap-4">
             {summary.length === 0 && (
-              <p className="text-sm text-foreground/80 text-center w-full py-6">
+              <p className="w-full py-6 text-sm text-center text-foreground/80">
                 No items found
               </p>
             )}
@@ -29,9 +28,9 @@ export default function CartCheckOutTab({ className }: { className?: string }) {
         </div>
       </ScrollArea>
       <Separator className="my-2 mt-4" />
-      <div className="flex justify-center align-middle items-center gap-4 flex-col text-sm bg-background select-none h-auto px-6">
+      <div className="flex flex-col items-center justify-center h-auto gap-4 px-6 text-sm align-middle select-none bg-background">
         <CartSummary items={summary} />
-        <div className="flex gap-2 w-full">
+        <div className="flex w-full gap-2">
           <ButtonToolTip
             label="Discord/Cancel"
             icon="MdDeleteOutline"

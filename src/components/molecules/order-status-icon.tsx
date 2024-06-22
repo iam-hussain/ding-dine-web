@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import React from "react";
 
 import {
   Tooltip,
@@ -11,14 +10,7 @@ import { cn } from "@/lib/utils";
 import { ORDER_STATUS } from "@/types";
 
 import Icon, { IconKey } from "../atoms/icon";
-
-export const orderStatusObject = {
-  DRAFT: "Draft",
-  IN_PROGRESS: "In-Progress",
-  COMPLETED: "Completed",
-  DELIVERY_PENDING: "Ready to Deliver",
-  DELIVERED: "In Delivery",
-};
+import { ORDER_STATUS_MAP } from "@/lib/constant";
 
 function OrderStatusIcon({
   value,
@@ -63,8 +55,8 @@ function OrderStatusIcon({
             "text-pink-600": value === ORDER_STATUS.DELIVERY_PENDING,
             "text-yellow-600": value === ORDER_STATUS.DRAFT,
           },
-          classNames,
-        ),
+          classNames
+        )
       )}
     />
   );
@@ -74,11 +66,11 @@ function OrderStatusIcon({
       <div
         className={clsx(
           "w-fit min-h-[40px] flex justify-center align-middle items-center gap-2 uppercase border px-2 py-1 rounded-lg min-w-[145px] bg-background",
-          wrapperClassNames,
+          wrapperClassNames
         )}
       >
         <IconComp />
-        <p className="text-sm font-medium">{orderStatusObject[value]}</p>
+        <p className="text-sm font-medium">{ORDER_STATUS_MAP[value]}</p>
       </div>
     );
   }
@@ -91,7 +83,7 @@ function OrderStatusIcon({
             <IconComp />
           </TooltipTrigger>
           <TooltipContent className="bg-bw-foreground text-bw">
-            <p className="text-base font-medium">{orderStatusObject[value]}</p>
+            <p className="text-base font-medium">{ORDER_STATUS_MAP[value]}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

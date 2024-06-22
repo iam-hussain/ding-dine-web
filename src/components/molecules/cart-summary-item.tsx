@@ -1,8 +1,6 @@
-import React from "react";
-
 function CartSummaryItem({ name, price }: { name: string; price: number }) {
   return (
-    <div className="flex gap-2 justify-between align-middle items-center w-full">
+    <div className="flex items-center justify-between w-full gap-2 align-middle">
       <span>{name}</span>
       <span>
         {Number(price).toLocaleString("en-IN", {

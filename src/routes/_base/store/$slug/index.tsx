@@ -6,11 +6,9 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/_base/store/$slug/")({
   beforeLoad: shouldBeLoggedIn as any,
   component: Store,
-  loader: async ({ context, params }) => {
+  loader: async ({ context }) => {
     const queryClient = context.queryClient;
-    const storeData = await queryClient.ensureQueryData(
-      storeQueryOptions(params.slug)
-    );
+    const storeData = await queryClient.ensureQueryData(storeQueryOptions());
 
     if (storeData) {
       context.store.dispatch(setStore(storeData));

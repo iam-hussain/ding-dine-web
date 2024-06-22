@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import * as React from "react";
 
 import { Container } from "@/components/atoms/container";
 import { ScrollArea } from "@/components/atoms/scroll-area";
@@ -26,7 +25,7 @@ export default function CategoryCollection({
           "w-auto min-w-full h-auto whitespace-nowrap transition-all duration-300"
         )}
       >
-        <Container className="grid grid-flow-row auto-rows-max w-full text-bg-foreground px-4 gap-4">
+        <Container className="grid w-full grid-flow-row gap-4 px-4 auto-rows-max text-bg-foreground">
           <CategoryItem
             name="All Menu"
             active={!selected}

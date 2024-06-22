@@ -1,7 +1,5 @@
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import React from "react";
 import { useSelector } from "react-redux";
 
 import { AspectRatio } from "@/components/atoms/aspect-ratio";
@@ -41,21 +39,20 @@ function ProductItem({ product, onClick, ...props }: ProductCardProps) {
       {...props}
     >
       {featureFlags.showProductsImage && product?.image.primary?.value && (
-        <div className="w-full rounded-lg border-2 border-accent">
+        <div className="w-full border-2 rounded-lg border-accent">
           <AspectRatio ratio={5 / 3} className="h-full">
-            <Image
+            <img
               src={product?.image.primary?.value}
               alt={product?.image.primary?.value}
-              fill
-              className="rounded-md object-cover"
+              className="object-cover rounded-md"
             />
           </AspectRatio>
         </div>
       )}
       {featureFlags.showProductsImage && !product?.image.primary?.value && (
-        <div className="w-5/12 rounded-lg border-2 border-accent">
+        <div className="w-5/12 border-2 rounded-lg border-accent">
           <AspectRatio ratio={4 / 3} className="h-full">
-            <div className="flex justify-center align-middle items-center rounded-md object-cover h-full w-full bg-accent text-2xl font-bold">
+            <div className="flex items-center justify-center object-cover w-full h-full text-2xl font-bold align-middle rounded-md bg-accent">
               H
             </div>
           </AspectRatio>
@@ -76,9 +73,9 @@ function ProductItem({ product, onClick, ...props }: ProductCardProps) {
           {product?.name || ""}
         </h5>
         {/* {featureFlags.showProductsImage && product?.deck && (
-          <p className="text-sm truncate overflow-hidden">{product?.deck}</p>
+          <p className="overflow-hidden text-sm truncate">{product?.deck}</p>
         )} */}
-        <p className="font-semibold text-xl text-foreground">
+        <p className="text-xl font-semibold text-foreground">
           {product?.formattedPrice}
         </p>
       </div>

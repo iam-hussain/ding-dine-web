@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 
 import { ScrollArea } from "@/components/atoms/scroll-area";
@@ -24,9 +23,9 @@ function CartStatusTab() {
     <div className={"flex flex-col h-full gap-2"}>
       <ScrollArea className="w-full flex justify-end grow bg-background px-4 h-[300px] cart">
         <div className="flex flex-col h-full">
-          <div className="flex flex-col gap-4 justify-between">
+          <div className="flex flex-col justify-between gap-4">
             {validCount === 0 && (
-              <p className="text-sm text-foreground/80 text-center w-full py-6">
+              <p className="w-full py-6 text-sm text-center text-foreground/80">
                 No items found
               </p>
             )}

@@ -4,13 +4,6 @@ import Typography from "@/components/atoms/typography";
 import AvatarCircle from "@/components/molecules/avatar-circle";
 import { RootState } from "@/store";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  Key,
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-} from "react";
 import { useSelector } from "react-redux";
 
 export const Route = createFileRoute("/_base/home")({

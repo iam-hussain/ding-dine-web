@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import React from "react";
 
 import { Container } from "@/components/atoms/container";
 import ProductItem from "@/components/molecules/product-item";
@@ -18,7 +17,7 @@ function ProductCollection({
     <div className={clsx("flex w-full h-auto gap-2 flex-col grow", className)}>
       {/* <h1 className="text-xl font-medium">Products</h1> */}
 
-      <Container className="grid md:grid-cols-3 2xl:grid-cols-4 px-4 grid-cols-1 gap-4 place-items-stretch place-content-around w-full m-auto">
+      <Container className="grid w-full grid-cols-1 gap-4 px-4 m-auto md:grid-cols-3 2xl:grid-cols-4 place-items-stretch place-content-around">
         {products.map((product, index) => (
           <ProductItem product={product} key={index} onClick={onClick} />
         ))}

@@ -3,9 +3,10 @@ import "./styles/global.scss";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import Router from "./router";
-import { QueryClientProvider } from "@/providers/query-provider";
 import { ThemeProvider } from "next-themes";
+import { QueryClientProvider } from "@tanstack/react-query";
 import StoreProvider from "./providers/store-provider";
+import { queryClient } from "./providers/query-provider";
 
 // Render the app
 const rootElement = document.getElementById("root")!;
@@ -20,7 +21,7 @@ if (!rootElement.innerHTML) {
           enableSystem
           disableTransitionOnChange
         >
-          <QueryClientProvider>
+          <QueryClientProvider client={queryClient}>
             <Router />
           </QueryClientProvider>
         </ThemeProvider>

@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import React from "react";
 
 import { Button, ButtonProps } from "@/components/atoms/button";
 import Icon, { IconKey } from "@/components/atoms/icon";
@@ -32,9 +31,9 @@ function ButtonToolTip({
             {...buttonProps}
           >
             {swapText ? (
-              <p className="font-bold text-base">{swapText}</p>
+              <p className="text-base font-bold">{swapText}</p>
             ) : (
-              <Icon name={icon} className="h-5 w-5" />
+              <Icon name={icon} className="w-5 h-5" />
             )}
           </Button>
         </TooltipTrigger>

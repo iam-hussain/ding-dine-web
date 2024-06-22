@@ -1,5 +1,3 @@
-import React from "react";
-
 import useCartSettings from "@/hooks/useCartSettings";
 import useOrderSummary from "@/hooks/useOrderSummary";
 import { ItemType } from "@/types";
@@ -14,7 +12,7 @@ function CartSummary({ items }: { className?: string; items: ItemType[] }) {
     });
 
   return (
-    <div className="flex flex-col justify-center align-middle items-center w-full text-base text-foreground/80">
+    <div className="flex flex-col items-center justify-center w-full text-base align-middle text-foreground/80">
       <CartSummaryItem name="Subtotal" price={subTotal} />
       {shouldAddPackingCharge && (
         <CartSummaryItem name="Packaging" price={packagingCharge} />

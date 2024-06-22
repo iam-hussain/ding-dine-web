@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import Box from "@/components/atoms/box";
 import { Button } from "@/components/atoms/button";
@@ -27,7 +27,6 @@ export const Route = createFileRoute("/_split/store")({
 });
 
 function Stores() {
-  const navigate = useNavigate();
   const meData: any = useSuspenseQuery(meQueryOptions());
   const stores = meData?.data?.stores || [];
 

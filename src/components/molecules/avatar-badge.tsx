@@ -10,7 +10,7 @@ function AvatarBadge({
   hed: string;
   dek?: string;
   image?: string;
-  minimize?: Boolean;
+  minimize?: boolean;
   className?: string;
 }) {
   return (

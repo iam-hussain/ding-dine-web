@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import React from "react";
 
 import Icon from "@/components/atoms/icon";
 
@@ -17,9 +16,9 @@ function BrandStack({ className }: BrandSvgProps) {
     >
       <Icon
         name="FaConciergeBell"
-        className="text-primary md:text-9xl text-7xl font-thin"
+        className="font-thin text-primary md:text-9xl text-7xl"
       />
-      <h1 className="md:text-7xl text-5xl font-display">DingDine</h1>
+      <h1 className="text-5xl md:text-7xl font-display">DingDine</h1>
     </div>
   );
 }

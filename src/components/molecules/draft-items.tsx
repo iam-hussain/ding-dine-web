@@ -1,6 +1,4 @@
 import { ItemCreateSchemaType } from "@iam-hussain/qd-copilot";
-import React from "react";
-
 import { Button } from "@/components/atoms/button";
 import Icon from "@/components/atoms/icon";
 
@@ -17,7 +15,7 @@ function DraftItems({ label, items }: DraftItemsProps) {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
+          <span className="px-2 bg-background text-muted-foreground">
             {label || "Drafted"}
           </span>
         </div>
@@ -26,13 +24,13 @@ function DraftItems({ label, items }: DraftItemsProps) {
       {items.map((item: any) => (
         <li
           key={item.id}
-          className="flex justify-center items-center align-middle gap-2 text-sm font-medium text-inactive w-full"
+          className="flex items-center justify-center w-full gap-2 text-sm font-medium align-middle text-inactive"
         >
           <div className="grow">
-            <p className=" text-left text-foreground">{item.title}</p>
+            <p className="text-left  text-foreground">{item.title}</p>
           </div>
 
-          <div className="flex justify-end align-middle items-center gap-2 min-w-28">
+          <div className="flex items-center justify-end gap-2 align-middle min-w-28">
             <span className="text-xs">
               {Number(item.price).toLocaleString("en-IN", {
                 style: "currency",
@@ -40,11 +38,11 @@ function DraftItems({ label, items }: DraftItemsProps) {
               })}
             </span>
             <span>x</span>
-            <span className="select-none text-foreground text-center">
+            <span className="text-center select-none text-foreground">
               {item.quantity}
             </span>
           </div>
-          <span className="min-w-20 flex justify-end text-foreground">
+          <span className="flex justify-end min-w-20 text-foreground">
             {Number(item.price * item.quantity).toLocaleString("en-IN", {
               style: "currency",
               currency: "INR",
@@ -57,7 +55,7 @@ function DraftItems({ label, items }: DraftItemsProps) {
             onClick={() => {}}
             type="button"
           >
-            <Icon name="RiDeleteBinLine" className="h-4 w-4 text-destructive" />
+            <Icon name="RiDeleteBinLine" className="w-4 h-4 text-destructive" />
           </Button>
         </li>
       ))}
