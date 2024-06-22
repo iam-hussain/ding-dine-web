@@ -17,6 +17,7 @@ import { Separator } from "@/components/atoms/separator";
 import { meQueryOptions } from "@/lib/query-options";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { shouldBeLoggedIn } from "@/lib/middleware";
+import { CustomLink } from "@/components/atoms/link";
 
 export const Route = createFileRoute("/_split/store")({
   beforeLoad: shouldBeLoggedIn as any,
@@ -80,13 +81,9 @@ function Stores() {
         <Typography as={"p"} variant={"sub"} className="w-auto">
           Try different account?
         </Typography>
-        <Button
-          variant={"link"}
-          className="p-0"
-          onClick={() => navigate({ to: "/logout" })}
-        >
+        <CustomLink variant={"link"} to={"/logout"} size={"none"}>
           Logout
-        </Button>
+        </CustomLink>
       </Box>
     </Box>
   );

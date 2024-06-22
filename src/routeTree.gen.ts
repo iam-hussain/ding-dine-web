@@ -18,8 +18,9 @@ import { Route as BaseImport } from './routes/_base'
 import { Route as IndexImport } from './routes/index'
 import { Route as SplitStoreImport } from './routes/_split/store'
 import { Route as SplitLoginImport } from './routes/_split/login'
+import { Route as BaseHomeImport } from './routes/_base/home'
 import { Route as BaseDashboardIndexImport } from './routes/_base/dashboard/index'
-import { Route as BaseSlugIndexImport } from './routes/_base/$slug/index'
+import { Route as BaseStoreSlugIndexImport } from './routes/_base/store/$slug/index'
 
 // Create/Update Routes
 
@@ -58,13 +59,18 @@ const SplitLoginRoute = SplitLoginImport.update({
   getParentRoute: () => SplitRoute,
 } as any)
 
+const BaseHomeRoute = BaseHomeImport.update({
+  path: '/home',
+  getParentRoute: () => BaseRoute,
+} as any)
+
 const BaseDashboardIndexRoute = BaseDashboardIndexImport.update({
   path: '/dashboard/',
   getParentRoute: () => BaseRoute,
 } as any)
 
-const BaseSlugIndexRoute = BaseSlugIndexImport.update({
-  path: '/$slug/',
+const BaseStoreSlugIndexRoute = BaseStoreSlugIndexImport.update({
+  path: '/store/$slug/',
   getParentRoute: () => BaseRoute,
 } as any)
 
@@ -107,6 +113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LogoutImport
       parentRoute: typeof rootRoute
     }
+    '/_base/home': {
+      id: '/_base/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof BaseHomeImport
+      parentRoute: typeof BaseImport
+    }
     '/_split/login': {
       id: '/_split/login'
       path: '/login'
@@ -121,18 +134,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplitStoreImport
       parentRoute: typeof SplitImport
     }
-    '/_base/$slug/': {
-      id: '/_base/$slug/'
-      path: '/$slug'
-      fullPath: '/$slug'
-      preLoaderRoute: typeof BaseSlugIndexImport
-      parentRoute: typeof BaseImport
-    }
     '/_base/dashboard/': {
       id: '/_base/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof BaseDashboardIndexImport
+      parentRoute: typeof BaseImport
+    }
+    '/_base/store/$slug/': {
+      id: '/_base/store/$slug/'
+      path: '/store/$slug'
+      fullPath: '/store/$slug'
+      preLoaderRoute: typeof BaseStoreSlugIndexImport
       parentRoute: typeof BaseImport
     }
   }
@@ -143,8 +156,9 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   BaseRoute: BaseRoute.addChildren({
-    BaseSlugIndexRoute,
+    BaseHomeRoute,
     BaseDashboardIndexRoute,
+    BaseStoreSlugIndexRoute,
   }),
   SplitRoute: SplitRoute.addChildren({ SplitLoginRoute, SplitStoreRoute }),
   AboutRoute,
@@ -172,8 +186,9 @@ export const routeTree = rootRoute.addChildren({
     "/_base": {
       "filePath": "_base.tsx",
       "children": [
-        "/_base/$slug/",
-        "/_base/dashboard/"
+        "/_base/home",
+        "/_base/dashboard/",
+        "/_base/store/$slug/"
       ]
     },
     "/_split": {
@@ -189,6 +204,10 @@ export const routeTree = rootRoute.addChildren({
     "/logout": {
       "filePath": "logout.tsx"
     },
+    "/_base/home": {
+      "filePath": "_base/home.tsx",
+      "parent": "/_base"
+    },
     "/_split/login": {
       "filePath": "_split/login.tsx",
       "parent": "/_split"
@@ -197,12 +216,12 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_split/store.tsx",
       "parent": "/_split"
     },
-    "/_base/$slug/": {
-      "filePath": "_base/$slug/index.tsx",
-      "parent": "/_base"
-    },
     "/_base/dashboard/": {
       "filePath": "_base/dashboard/index.tsx",
+      "parent": "/_base"
+    },
+    "/_base/store/$slug/": {
+      "filePath": "_base/store/$slug/index.tsx",
       "parent": "/_base"
     }
   }

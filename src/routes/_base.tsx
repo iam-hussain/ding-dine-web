@@ -23,14 +23,18 @@ export const Route = createFileRoute("/_base")({
 });
 
 function Base() {
-  const store = useSelector((state: RootState) => state.base.store);
+  const params: any = Route.useParams();
   const topBarOpen = useSelector((state: RootState) => state.page.topBarOpen);
+  const showSideBar = Boolean(params?.slug || "");
 
   return (
     <div className="main-wrapper">
-      {store && <SideMenu />}
+      {showSideBar && <SideMenu />}
       <main className={"page-main bg-paper"}>
-        <TopMenu className="fixed z-30 block w-full bg-background" />
+        <TopMenu
+          className="fixed z-30 block w-full bg-background"
+          showSideBar={showSideBar}
+        />
         <div
           className={classNames(
             "h-full min-h-svh w-full transition-all duration-300",

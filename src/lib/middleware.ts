@@ -13,11 +13,11 @@ export const shouldBeLoggedIn = ({ location }: { location: Location }) => {
   }
 };
 
-export const shouldNotBeLoggedIn = () => {
+export const shouldNotBeLoggedIn = ({ search }: any) => {
   const token = getCookie(cookieNames.access_token);
   if (token) {
     throw redirect({
-      to: "/store",
+      to: search?.redirect || "/store",
     });
   }
 };

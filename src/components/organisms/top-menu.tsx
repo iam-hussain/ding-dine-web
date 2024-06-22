@@ -52,7 +52,13 @@ const animator = {
   },
 };
 
-function TopMenu({ className }: { className?: string }) {
+function TopMenu({
+  className,
+  showSideBar,
+}: {
+  className?: string;
+  showSideBar: boolean;
+}) {
   const { y } = useWindowScroll();
   const dispatch = useDispatch();
   const [scrollDirection, setScrollDirection] = useState("IDEAL");
@@ -88,7 +94,7 @@ function TopMenu({ className }: { className?: string }) {
   return (
     <motion.nav
       className={clsx(
-        "border-b w-full h-[60px] align-middle items-center fixed px-4 flex justify-between",
+        "border-b w-full h-[60px] align-middle items-center fixed px-4 md:px-8 flex justify-between",
         className
       )}
       initial="show"
@@ -97,7 +103,7 @@ function TopMenu({ className }: { className?: string }) {
       animate={shouldHide ? "show" : "hide"}
     >
       <Box className="w-auto" gap={6}>
-        {store && (
+        {store && store.id && showSideBar ? (
           <Button
             variant={"outline"}
             size={"icon"}
@@ -105,6 +111,8 @@ function TopMenu({ className }: { className?: string }) {
           >
             <Icon name={sideBarOpen ? "IoClose" : "HiMenuAlt2"} />
           </Button>
+        ) : (
+          <></>
         )}
 
         <Brand fontSize={"small"} iconSize={"small"} />

@@ -1,11 +1,14 @@
+import {
+  Link as TanstackLink,
+  LinkProps as TanstackLinkProps,
+} from "@tanstack/react-router";
 import { Slot, Slottable } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
-
 import { cn } from "@/lib/utils";
 import Icon, { IconKey } from "./icon";
+import { cva, type VariantProps } from "class-variance-authority";
 
-const buttonVariants = cva(
+const linkVariants = cva(
   "inline-flex gap-2 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
@@ -18,6 +21,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/90",
         ghost: "hover:bg-accent hover:text-accent-foreground",
+        menu: "hover:bg-accent hover:text-accent-foreground justify-start gap-4 text-foreground/80 w-full",
         transparent: "bg-transparent active:bg-bw border-0",
         link: "text-primary underline-offset-4 hover:underline",
         accent: "bg-accent text-accent-foreground shadow-sm hover:bg-accent/90",
@@ -43,6 +47,8 @@ const buttonVariants = cva(
   }
 );
 
+type LinkVariantProps = VariantProps<typeof linkVariants>;
+
 interface IconProps {
   iconName: IconKey;
   iconPlacement: "left" | "right";
@@ -53,17 +59,21 @@ interface IconRefProps {
   iconPlacement?: undefined;
 }
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+export interface CustomLinkProps
+  extends TanstackLinkProps,
+    // React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    LinkVariantProps {
   asChild?: boolean;
+  className?: string;
+  children: any;
+  onClick?: () => void;
 }
 
-export type ButtonIconProps = IconProps | IconRefProps;
+export type LinkIconProps = IconProps | IconRefProps;
 
-const Button = React.forwardRef<
-  HTMLButtonElement,
-  ButtonProps & ButtonIconProps
+const CustomLink = React.forwardRef<
+  HTMLAnchorElement,
+  CustomLinkProps & LinkIconProps
 >(
   (
     {
@@ -74,23 +84,23 @@ const Button = React.forwardRef<
       asChild = false,
       iconName,
       iconPlacement = "left",
+      children,
       ...props
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : "button";
+    const Comp = asChild ? Slot : TanstackLink;
+
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, animation, className }))}
+        className={cn(linkVariants({ variant, size, animation, className }))}
         ref={ref}
-        type={"button"}
-        {...props}
+        {...(props as any)}
       >
         {iconName && iconPlacement === "left" && (
           <Icon className="w-5 h-5" name={iconName} />
         )}
-        <Slottable>{props.children}</Slottable>
-
+        <Slottable>{children}</Slottable>
         {iconName && iconPlacement === "right" && (
           <Icon className="w-5 h-5" name={iconName} />
         )}
@@ -98,6 +108,7 @@ const Button = React.forwardRef<
     );
   }
 );
-Button.displayName = "Button";
 
-export { Button, buttonVariants };
+CustomLink.displayName = "CustomLink";
+
+export { CustomLink, linkVariants };

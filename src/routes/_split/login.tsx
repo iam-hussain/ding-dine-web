@@ -26,7 +26,7 @@ function Login() {
     if (redirect) {
       navigate({ to: redirect });
     } else {
-      navigate({ to: "/store" });
+      navigate({ to: "/home" });
     }
   };
 

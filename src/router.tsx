@@ -21,11 +21,7 @@ declare module "@tanstack/react-router" {
 
 const router = createRouter({
   routeTree,
-  defaultPendingComponent: () => (
-    <div className={`p-2 text-2xl`}>
-      <Loader />
-    </div>
-  ),
+  defaultPendingComponent: () => <Loader minFullScreen={true} />,
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   context: {
     queryClient,

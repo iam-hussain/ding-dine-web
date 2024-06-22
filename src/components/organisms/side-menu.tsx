@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container } from "@/components/atoms/container";
 import Icon, { IconKey } from "@/components/atoms/icon";
 import { ScrollArea } from "@/components/atoms/scroll-area";
-import MenuItem from "@/components/molecules/menu-item";
 import { RootState } from "@/store";
 import { openSideBar } from "@/store/pageSlice";
 import { Separator } from "../atoms/separator";
@@ -13,6 +11,7 @@ import { classNames } from "@/lib/utils";
 import Box from "../atoms/box";
 import { Button } from "../atoms/button";
 import AvatarBadge from "../molecules/avatar-badge";
+import { CustomLink } from "../atoms/link";
 
 type Menu = {
   icon: IconKey;
@@ -22,24 +21,36 @@ type Menu = {
 };
 
 const appMenus: Menu[] = [
-  { icon: "MdDashboard", label: "Dashboard", link: "/store/dashboard" },
-  { icon: "BsPrinterFill", label: "Billing System", link: "/store/pos" },
-  { icon: "SiAirtable", label: "Orders Display", link: "/store/orders" },
-  { icon: "MdSoupKitchen", label: "Kitchen Display", link: "/store/kitchen" },
-  { icon: "FaCartShopping", label: "Customer Display", link: "/store/display" },
+  { icon: "MdOutlineSpaceDashboard", label: "Dashboard", link: "/dashboard" },
+  { icon: "LuPrinter", label: "Billing System", link: "/store/pos" },
+  { icon: "RiBillLine", label: "Orders Display", link: "/store/orders" },
+  {
+    icon: "MdOutlineSoupKitchen",
+    label: "Kitchen Display",
+    link: "/store/kitchen",
+  },
+  {
+    icon: "PiShoppingCartSimpleBold",
+    label: "Customer Display",
+    link: "/store/display",
+  },
 ];
 
 const settingMenus: Menu[] = [
-  { icon: "FaStore", label: "Store", link: "/store" },
+  { icon: "MdStorefront", label: "Store", link: "/store" },
   {
-    icon: "MdEventAvailable",
+    icon: "HiOutlineCalendar",
     label: "Availability",
     link: "/store/availability",
   },
-  { icon: "IoFastFoodSharp", label: "Products", link: "/store/product" },
-  { icon: "FaTags", label: "Category", link: "/store/category" },
-  { icon: "FaRegObjectGroup", label: "Kitchen Group", link: "/store/group" },
-  { icon: "FaSave", label: "Settings", link: "/store/settings" },
+  { icon: "MdOutlineFastfood", label: "Products", link: "/store/product" },
+  { icon: "LuTag", label: "Category", link: "/store/category" },
+  {
+    icon: "LuGroup",
+    label: "Kitchen Group",
+    link: "/store/group",
+  },
+  { icon: "IoSettingsOutline", label: "Settings", link: "/store/settings" },
 ];
 
 const variants = {
@@ -50,17 +61,10 @@ const variants = {
   },
 };
 
-const closerButton = {
-  initial: { scale: 1 },
-  hover: { scale: 1.2 },
-  pressed: { scale: 0.8 },
-};
-
 function SideMenu({ className }: { className?: string }) {
   const sideBarOpen = useSelector((state: RootState) => state.page.sideBarOpen);
   const dispatch = useDispatch();
   const store = useSelector((state: RootState) => state.base.store);
-  const user = useSelector((state: RootState) => state.base.user);
 
   useEffect(() => {
     document.body.style.overflow = sideBarOpen ? "hidden" : "unset";
@@ -86,10 +90,9 @@ function SideMenu({ className }: { className?: string }) {
           className
         )}
       >
-        <Box preset={"stack-start"}>
+        <Box preset={"stack-start"} className="h-full overflow-hidden">
           <Box>
             <AvatarBadge hed={store.name} dek={store.slug} />
-
             <Button
               variant={"transparent"}
               size={"icon"}
@@ -101,24 +104,32 @@ function SideMenu({ className }: { className?: string }) {
           </Box>
           <Separator />
 
-          <ScrollArea className="flex justify-end w-full py-4 grow">
-            <Container className="flex flex-col gap-3 px-1 my-2 text-right">
+          <ScrollArea className="w-full grow">
+            <Box preset={"stack-start"} gap={1}>
               {appMenus.map((each, key) => (
-                <MenuItem
-                  {...each}
+                <CustomLink
                   key={key}
-                  onRedirect={handleSidebarToggle}
-                />
+                  variant={"menu"}
+                  iconName={each.icon}
+                  to={each.link as any}
+                  onClick={() => handleSidebarToggle()}
+                >
+                  {each.label}
+                </CustomLink>
               ))}
-              <Separator className="my-2 select-none" />
+              <Separator className="my-2" />
               {settingMenus.map((each, key) => (
-                <MenuItem
-                  {...each}
+                <CustomLink
                   key={key}
-                  onRedirect={handleSidebarToggle}
-                />
+                  variant={"menu"}
+                  iconName={each.icon}
+                  to={each.link as any}
+                  onClick={() => handleSidebarToggle()}
+                >
+                  {each.label}
+                </CustomLink>
               ))}
-            </Container>
+            </Box>
           </ScrollArea>
         </Box>
       </motion.div>

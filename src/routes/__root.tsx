@@ -2,9 +2,6 @@ import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import React, { Suspense } from "react";
 
 import { Toaster } from "@/components/atoms/sonner";
-import { QueryClientProvider } from "@/providers/query-provider";
-import StoreProvider from "@/providers/store-provider";
-import { ThemeProvider } from "@/providers/theme-provider";
 import { RouterContext } from "@/types/context";
 
 const TanStackRouterDevtools =
@@ -22,18 +19,9 @@ const TanStackRouterDevtools =
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
     <Suspense>
-      <StoreProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Outlet />
-          <TanStackRouterDevtools />
-          <Toaster />
-        </ThemeProvider>
-      </StoreProvider>
+      <Outlet />
+      <TanStackRouterDevtools />
+      <Toaster />
     </Suspense>
   ),
 });

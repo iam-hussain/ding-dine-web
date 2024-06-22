@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Icon from "@/components/atoms/icon";
+import Icon, { IconKey } from "@/components/atoms/icon";
 import { RootState } from "@/store";
 import { openUserBar } from "@/store/pageSlice";
 import { Separator } from "../atoms/separator";
@@ -10,6 +10,23 @@ import AvatarBadge from "../molecules/avatar-badge";
 import Box from "@/components/atoms/box";
 import { Button } from "../atoms/button";
 import { animateDecorator } from "@/lib/animate";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { CustomLink } from "../atoms/link";
+
+type Menu = {
+  icon: IconKey;
+  label: string;
+  active?: boolean;
+  link?: string;
+};
+
+const userMenus: Menu[] = [
+  { icon: "RiHome4Line", label: "Home", link: "/home" },
+  // { icon: "CgProfile", label: "Profile", link: "/profile" },
+  { icon: "MdStorefront", label: "Stores", link: "/store" },
+  { icon: "MdCardMembership", label: "Subscriptions", link: "/subscriptions" },
+  { icon: "IoSettingsOutline", label: "Settings", link: "/settings" },
+];
 
 const variants = {
   initial: { x: 400, transition: { duration: 0.3, ease: "linear" } },
@@ -20,9 +37,9 @@ const variants = {
 };
 
 function UserMenu({ className }: { className?: string }) {
-  const userBarOpen = useSelector((state: RootState) => state.page.userBarOpen);
   const dispatch = useDispatch();
-  const store = useSelector((state: RootState) => state.base.store);
+
+  const userBarOpen = useSelector((state: RootState) => state.page.userBarOpen);
   const user = useSelector((state: RootState) => state.base.user);
 
   useEffect(() => {
@@ -49,7 +66,7 @@ function UserMenu({ className }: { className?: string }) {
           className
         )}
       >
-        <Box preset={"stack-start"}>
+        <Box preset={"stack-start"} className="h-full overflow-hidden">
           <Box>
             <AvatarBadge hed={user.fullName} dek={user.username} />
             <Button
@@ -62,6 +79,33 @@ function UserMenu({ className }: { className?: string }) {
             </Button>
           </Box>
           <Separator />
+
+          <ScrollArea className="w-full grow">
+            <Box preset={"stack-start"} gap={1}>
+              {userMenus.map((each, key) => (
+                <CustomLink
+                  key={key}
+                  variant={"menu"}
+                  iconName={each.icon}
+                  to={each.link as any}
+                  onClick={() => handleSidebarToggle()}
+                >
+                  {each.label}
+                </CustomLink>
+              ))}
+            </Box>
+          </ScrollArea>
+
+          <Separator />
+
+          <CustomLink
+            variant={"menu"}
+            iconName={"IoLogOut"}
+            to={"/logout"}
+            onClick={() => handleSidebarToggle()}
+          >
+            Logout
+          </CustomLink>
         </Box>
       </motion.div>
     </>
