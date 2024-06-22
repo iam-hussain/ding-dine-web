@@ -17,7 +17,7 @@ export const shouldNotBeLoggedIn = ({ search }: any) => {
   const token = getCookie(cookieNames.access_token);
   if (token) {
     throw redirect({
-      to: search?.redirect || "/store",
+      to: search?.redirect || "/home",
     });
   }
 };
