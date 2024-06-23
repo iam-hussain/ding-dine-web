@@ -1,9 +1,10 @@
+import Box from "@/components/atoms/box";
 import { shouldBeLoggedIn } from "@/lib/middleware";
 import { storeQueryOptions } from "@/lib/query-options";
 import { setStore } from "@/store/baseSlice";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_base/store/$slug/")({
+export const Route = createFileRoute("/_store/store/$slug/")({
   beforeLoad: shouldBeLoggedIn as any,
   component: Store,
   loader: async ({ context }) => {
@@ -17,5 +18,9 @@ export const Route = createFileRoute("/_base/store/$slug/")({
 });
 
 function Store() {
-  return <div>Hello </div>;
+  return (
+    <Box preset={"row-responsive"} variant={"page"} data-name={"page"} gap={6}>
+      <div>Hello </div>
+    </Box>
+  );
 }

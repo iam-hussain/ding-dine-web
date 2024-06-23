@@ -9,9 +9,9 @@ import { setUser } from "@/store/baseSlice";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
 
-export const Route = createFileRoute("/_base")({
+export const Route = createFileRoute("/_user")({
   beforeLoad: shouldBeLoggedIn as any,
-  component: Base,
+  component: UserLayout,
   loader: async ({ context }) => {
     const queryClient = context.queryClient;
     const meData = await queryClient.ensureQueryData(meQueryOptions());
@@ -22,18 +22,15 @@ export const Route = createFileRoute("/_base")({
   },
 });
 
-function Base() {
-  const params: any = Route.useParams();
+function UserLayout() {
   const topBarOpen = useSelector((state: RootState) => state.page.topBarOpen);
-  const showSideBar = Boolean(params?.slug || "");
 
   return (
     <div className="main-wrapper">
-      {showSideBar && <SideMenu />}
       <main className={"page-main bg-paper"}>
         <TopMenu
           className="fixed z-30 block w-full bg-background"
-          showSideBar={showSideBar}
+          showSideBar={false}
         />
         <div
           className={classNames(

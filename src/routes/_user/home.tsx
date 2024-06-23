@@ -6,7 +6,7 @@ import { RootState } from "@/store";
 import { createFileRoute } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
 
-export const Route = createFileRoute("/_base/home")({
+export const Route = createFileRoute("/_user/home")({
   component: Home,
 });
 

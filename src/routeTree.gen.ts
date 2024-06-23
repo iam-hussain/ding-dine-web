@@ -13,14 +13,15 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LogoutImport } from './routes/logout'
 import { Route as AboutImport } from './routes/about'
+import { Route as UserImport } from './routes/_user'
+import { Route as StoreImport } from './routes/_store'
 import { Route as SplitImport } from './routes/_split'
-import { Route as BaseImport } from './routes/_base'
 import { Route as IndexImport } from './routes/index'
+import { Route as UserHomeImport } from './routes/_user/home'
 import { Route as SplitStoreImport } from './routes/_split/store'
 import { Route as SplitLoginImport } from './routes/_split/login'
-import { Route as BaseHomeImport } from './routes/_base/home'
-import { Route as BaseDashboardIndexImport } from './routes/_base/dashboard/index'
-import { Route as BaseStoreSlugIndexImport } from './routes/_base/store/$slug/index'
+import { Route as StoreStoreSlugIndexImport } from './routes/_store/store/$slug/index'
+import { Route as StoreStoreSlugSettingImport } from './routes/_store/store/$slug/setting'
 
 // Create/Update Routes
 
@@ -34,19 +35,29 @@ const AboutRoute = AboutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const SplitRoute = SplitImport.update({
-  id: '/_split',
+const UserRoute = UserImport.update({
+  id: '/_user',
   getParentRoute: () => rootRoute,
 } as any)
 
-const BaseRoute = BaseImport.update({
-  id: '/_base',
+const StoreRoute = StoreImport.update({
+  id: '/_store',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SplitRoute = SplitImport.update({
+  id: '/_split',
   getParentRoute: () => rootRoute,
 } as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const UserHomeRoute = UserHomeImport.update({
+  path: '/home',
+  getParentRoute: () => UserRoute,
 } as any)
 
 const SplitStoreRoute = SplitStoreImport.update({
@@ -59,19 +70,14 @@ const SplitLoginRoute = SplitLoginImport.update({
   getParentRoute: () => SplitRoute,
 } as any)
 
-const BaseHomeRoute = BaseHomeImport.update({
-  path: '/home',
-  getParentRoute: () => BaseRoute,
-} as any)
-
-const BaseDashboardIndexRoute = BaseDashboardIndexImport.update({
-  path: '/dashboard/',
-  getParentRoute: () => BaseRoute,
-} as any)
-
-const BaseStoreSlugIndexRoute = BaseStoreSlugIndexImport.update({
+const StoreStoreSlugIndexRoute = StoreStoreSlugIndexImport.update({
   path: '/store/$slug/',
-  getParentRoute: () => BaseRoute,
+  getParentRoute: () => StoreRoute,
+} as any)
+
+const StoreStoreSlugSettingRoute = StoreStoreSlugSettingImport.update({
+  path: '/store/$slug/setting',
+  getParentRoute: () => StoreRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -85,18 +91,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_base': {
-      id: '/_base'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof BaseImport
-      parentRoute: typeof rootRoute
-    }
     '/_split': {
       id: '/_split'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof SplitImport
+      parentRoute: typeof rootRoute
+    }
+    '/_store': {
+      id: '/_store'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof StoreImport
+      parentRoute: typeof rootRoute
+    }
+    '/_user': {
+      id: '/_user'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof UserImport
       parentRoute: typeof rootRoute
     }
     '/about': {
@@ -113,13 +126,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LogoutImport
       parentRoute: typeof rootRoute
     }
-    '/_base/home': {
-      id: '/_base/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof BaseHomeImport
-      parentRoute: typeof BaseImport
-    }
     '/_split/login': {
       id: '/_split/login'
       path: '/login'
@@ -134,19 +140,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplitStoreImport
       parentRoute: typeof SplitImport
     }
-    '/_base/dashboard/': {
-      id: '/_base/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof BaseDashboardIndexImport
-      parentRoute: typeof BaseImport
+    '/_user/home': {
+      id: '/_user/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof UserHomeImport
+      parentRoute: typeof UserImport
     }
-    '/_base/store/$slug/': {
-      id: '/_base/store/$slug/'
+    '/_store/store/$slug/setting': {
+      id: '/_store/store/$slug/setting'
+      path: '/store/$slug/setting'
+      fullPath: '/store/$slug/setting'
+      preLoaderRoute: typeof StoreStoreSlugSettingImport
+      parentRoute: typeof StoreImport
+    }
+    '/_store/store/$slug/': {
+      id: '/_store/store/$slug/'
       path: '/store/$slug'
       fullPath: '/store/$slug'
-      preLoaderRoute: typeof BaseStoreSlugIndexImport
-      parentRoute: typeof BaseImport
+      preLoaderRoute: typeof StoreStoreSlugIndexImport
+      parentRoute: typeof StoreImport
     }
   }
 }
@@ -155,12 +168,12 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  BaseRoute: BaseRoute.addChildren({
-    BaseHomeRoute,
-    BaseDashboardIndexRoute,
-    BaseStoreSlugIndexRoute,
-  }),
   SplitRoute: SplitRoute.addChildren({ SplitLoginRoute, SplitStoreRoute }),
+  StoreRoute: StoreRoute.addChildren({
+    StoreStoreSlugSettingRoute,
+    StoreStoreSlugIndexRoute,
+  }),
+  UserRoute: UserRoute.addChildren({ UserHomeRoute }),
   AboutRoute,
   LogoutRoute,
 })
@@ -174,22 +187,15 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_base",
         "/_split",
+        "/_store",
+        "/_user",
         "/about",
         "/logout"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/_base": {
-      "filePath": "_base.tsx",
-      "children": [
-        "/_base/home",
-        "/_base/dashboard/",
-        "/_base/store/$slug/"
-      ]
     },
     "/_split": {
       "filePath": "_split.tsx",
@@ -198,15 +204,24 @@ export const routeTree = rootRoute.addChildren({
         "/_split/store"
       ]
     },
+    "/_store": {
+      "filePath": "_store.tsx",
+      "children": [
+        "/_store/store/$slug/setting",
+        "/_store/store/$slug/"
+      ]
+    },
+    "/_user": {
+      "filePath": "_user.tsx",
+      "children": [
+        "/_user/home"
+      ]
+    },
     "/about": {
       "filePath": "about.tsx"
     },
     "/logout": {
       "filePath": "logout.tsx"
-    },
-    "/_base/home": {
-      "filePath": "_base/home.tsx",
-      "parent": "/_base"
     },
     "/_split/login": {
       "filePath": "_split/login.tsx",
@@ -216,13 +231,17 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_split/store.tsx",
       "parent": "/_split"
     },
-    "/_base/dashboard/": {
-      "filePath": "_base/dashboard/index.tsx",
-      "parent": "/_base"
+    "/_user/home": {
+      "filePath": "_user/home.tsx",
+      "parent": "/_user"
     },
-    "/_base/store/$slug/": {
-      "filePath": "_base/store/$slug/index.tsx",
-      "parent": "/_base"
+    "/_store/store/$slug/setting": {
+      "filePath": "_store/store/$slug/setting.tsx",
+      "parent": "/_store"
+    },
+    "/_store/store/$slug/": {
+      "filePath": "_store/store/$slug/index.tsx",
+      "parent": "/_store"
     }
   }
 }
