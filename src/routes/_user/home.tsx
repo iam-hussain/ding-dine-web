@@ -27,7 +27,7 @@ function Home() {
             {user.fullName}
           </Typography>
           <Typography variant={"sub"} className="text-base md:text-2xl">
-            {user.username}
+            {user.email}
           </Typography>
         </Box>
       </Box>
@@ -53,7 +53,7 @@ function Home() {
                 }}
                 iconName="MdStorefront"
               >
-                View
+                Manage
               </CustomLink>
             </Box>
           ))}

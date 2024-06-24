@@ -1,4 +1,3 @@
-import SideMenu from "@/components/organisms/side-menu";
 import TopMenu from "@/components/organisms/top-menu";
 import UserMenu from "@/components/organisms/user-menu";
 import { shouldBeLoggedIn } from "@/lib/middleware";

@@ -23,7 +23,7 @@ type Menu = {
 const appMenus: Menu[] = [
   { icon: "MdOutlineSpaceDashboard", label: "Dashboard", link: "/dashboard" },
   { icon: "LuPrinter", label: "Billing System", link: "/store/pos" },
-  { icon: "RiBillLine", label: "Orders Display", link: "/store/orders" },
+  { icon: "RiBillLine", label: "Order Management", link: "/store/orders" },
   {
     icon: "MdOutlineSoupKitchen",
     label: "Kitchen Display",

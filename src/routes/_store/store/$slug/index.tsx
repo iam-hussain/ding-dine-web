@@ -1,26 +1,94 @@
 import Box from "@/components/atoms/box";
-import { shouldBeLoggedIn } from "@/lib/middleware";
-import { storeQueryOptions } from "@/lib/query-options";
-import { setStore } from "@/store/baseSlice";
+import Icon, { IconKey } from "@/components/atoms/icon";
+import { CustomLink } from "@/components/atoms/link";
+import Typography from "@/components/atoms/typography";
+import AvatarCircle from "@/components/molecules/avatar-circle";
+import { RootState } from "@/store";
 import { createFileRoute } from "@tanstack/react-router";
+import { useSelector } from "react-redux";
 
 export const Route = createFileRoute("/_store/store/$slug/")({
-  beforeLoad: shouldBeLoggedIn as any,
   component: Store,
-  loader: async ({ context }) => {
-    const queryClient = context.queryClient;
-    const storeData = await queryClient.ensureQueryData(storeQueryOptions());
-
-    if (storeData) {
-      context.store.dispatch(setStore(storeData));
-    }
-  },
 });
 
+type Menu = {
+  icon: IconKey;
+  label: string;
+  active?: boolean;
+  link?: string;
+  description: string;
+};
+
+const appMenus: Menu[] = [
+  {
+    icon: "LuPrinter",
+    label: "Billing System",
+    link: "/store/pos",
+    description:
+      "Manage customer billing efficiently with our integrated POS system.",
+  },
+  {
+    icon: "RiBillLine",
+    label: "Order Management",
+    link: "/store/orders",
+    description: "Track and manage all customer orders in one place.",
+  },
+  {
+    icon: "MdOutlineSoupKitchen",
+    label: "Kitchen Display",
+    link: "/store/kitchen",
+    description: "Display orders to kitchen staff for streamlined preparation.",
+  },
+  {
+    icon: "PiShoppingCartSimpleBold",
+    label: "Customer Display",
+    link: "/store/display",
+    description: "Show order status and updates to customers in real-time.",
+  },
+];
+
 function Store() {
+  const store = useSelector((state: RootState) => state.base.store);
+
   return (
     <Box preset={"row-responsive"} variant={"page"} data-name={"page"} gap={6}>
-      <div>Hello </div>
+      <Box preset={"stack-responsive"} data-name={"avatar"}>
+        <AvatarCircle
+          name={store.slug}
+          image={store?.image}
+          className="w-16 h-16 md:h-60 md:w-60"
+          avatarClassName="md:text-6xl"
+        />
+        <Box preset={"stack-center"} className="w-auto" gap={0}>
+          <Typography variant={"h2"} className="text-md md:text-4xl">
+            {store.name}
+          </Typography>
+          <Typography variant={"sub"} className="text-base md:text-2xl">
+            {store.slug}
+          </Typography>
+        </Box>
+      </Box>
+      <Box preset={"stack-start"} className="grow" gap={4}>
+        <Typography variant={"caption"}>Stores</Typography>
+        <Box preset={"grid-4/2-lg"} gap={4}>
+          {appMenus.map((item, index) => (
+            <Box
+              key={`item_${index}`}
+              preset={"stack-center"}
+              className="h-full p-4 bg-background min-w-[150px]"
+              gap={0}
+            >
+              <Icon name={item.icon} className="w-8 h-8 grow" />
+              <CustomLink variant={"link"}>
+                <Typography variant={"h6"}>{item.label}</Typography>
+              </CustomLink>
+              <Typography variant={"sub"} className="text-center">
+                {item.description}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      </Box>
     </Box>
   );
 }
