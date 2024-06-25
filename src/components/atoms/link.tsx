@@ -65,7 +65,7 @@ export interface CustomLinkProps
     LinkVariantProps {
   asChild?: boolean;
   className?: string;
-  children: any;
+  children?: any;
   onClick?: () => void;
 }
 
@@ -100,7 +100,7 @@ const CustomLink = React.forwardRef<
         {iconName && iconPlacement === "left" && (
           <Icon className="w-5 h-5" name={iconName} />
         )}
-        <Slottable>{children}</Slottable>
+        {children && <Slottable>{children}</Slottable>}
         {iconName && iconPlacement === "right" && (
           <Icon className="w-5 h-5" name={iconName} />
         )}

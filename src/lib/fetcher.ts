@@ -33,9 +33,12 @@ const fetcher = async (
       }
     );
     const responseData = await response.json();
-
+    if (["INVALID_ACCESS"].includes(responseData?.message)) {
+      return (window.location.href = "/logout");
+    }
     return responseData;
   } catch (err) {
+    console.log({ err, name: "err" });
     console.error(err);
     return {};
   }

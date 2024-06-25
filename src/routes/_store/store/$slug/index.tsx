@@ -15,7 +15,7 @@ type Menu = {
   icon: IconKey;
   label: string;
   active?: boolean;
-  link?: string;
+  link: any;
   description: string;
 };
 
@@ -70,21 +70,26 @@ function Store() {
       </Box>
       <Box preset={"stack-start"} className="grow" gap={4}>
         <Typography variant={"caption"}>Stores</Typography>
-        <Box preset={"grid-4/2-lg"} gap={4}>
+        <Box preset={"stack-center"} gap={4}>
           {appMenus.map((item, index) => (
             <Box
               key={`item_${index}`}
-              preset={"stack-center"}
+              preset={"row-space-between"}
               className="h-full p-4 bg-background min-w-[150px]"
-              gap={0}
+              gap={4}
             >
-              <Icon name={item.icon} className="w-8 h-8 grow" />
-              <CustomLink variant={"link"}>
-                <Typography variant={"h6"}>{item.label}</Typography>
-              </CustomLink>
-              <Typography variant={"sub"} className="text-center">
-                {item.description}
-              </Typography>
+              <Icon name={item.icon} className="w-10 h-10" />
+              <Box preset={"stack-start"} gap={0} className="grow">
+                <CustomLink variant={"link"} className="h-auto p-0">
+                  <Typography variant={"h6"}>{item.label}</Typography>
+                </CustomLink>
+                <Typography variant={"sub"}>{item.description}</Typography>
+              </Box>
+              <CustomLink
+                variant={"outline"}
+                iconName="BiShow"
+                to={item.link}
+              />
             </Box>
           ))}
         </Box>
