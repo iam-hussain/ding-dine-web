@@ -1,10 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  setFormValidationErrors,
-  setUnexpectedFormError,
-  SignInSchema,
-  SignInSchemaType,
-} from "@iam-hussain/qd-copilot";
+import { SignInSchema, SignInSchemaType } from "@iam-hussain/qd-copilot";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
@@ -34,17 +29,15 @@ function LoginForm({ onSuccess }: { onSuccess?: (token: string) => void }) {
   });
   const { control, handleSubmit, setError, formState } = form;
   const { isDirty, isSubmitting, errors } = formState;
+
   const mutation = useMutation({
-    mutationFn: (variables) =>
-      fetcher.post("/authentication/sign-in", variables),
+    mutationFn: (body) =>
+      fetcher.post("/authentication/sign-in", { body, setError }),
     onSuccess: async (data: any) => {
       if (data?.access_token && onSuccess) {
         onSuccess(data.access_token);
-      } else {
-        setUnexpectedFormError(setError);
       }
     },
-    onError: (err) => setFormValidationErrors(err, setError),
   });
 
   async function onSubmit(variables: SignInSchemaType) {

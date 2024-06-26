@@ -1,10 +1,6 @@
 import "./styles/global.scss";
 
-import {
-  createRouter,
-  RouterProvider,
-  ErrorComponent,
-} from "@tanstack/react-router";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
@@ -12,6 +8,7 @@ import Loader from "@/components/molecules/loader";
 import { queryClient } from "@/providers/query-provider";
 import { store } from "@/store";
 import NotFound from "@/components/molecules/not-found";
+import Error from "@/components/molecules/error";
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -23,7 +20,7 @@ declare module "@tanstack/react-router" {
 const router = createRouter({
   routeTree,
   defaultPendingComponent: () => <Loader minFullScreen={true} />,
-  defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
+  defaultErrorComponent: ({ error }) => <Error error={error} />,
   defaultNotFoundComponent: () => <NotFound />,
   context: {
     queryClient,
