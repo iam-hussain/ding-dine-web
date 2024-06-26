@@ -7,8 +7,10 @@ import { Separator } from "../atoms/separator";
 
 function NotFound({ className }: { className?: string }) {
   return (
-    <Box className={classNames("min-h-screen bg-paper", className)}>
-      <Box preset={"stack-center"} gap={8} className="p-4 pb-36">
+    <Box
+      className={classNames("min-h-screen bg-paper p-6 md:pb-20", className)}
+    >
+      <Box preset={"stack-center"} gap={8}>
         <Box preset={"stack-center"} className="max-w-lg">
           <Brand />
           <Separator />
@@ -18,7 +20,7 @@ function NotFound({ className }: { className?: string }) {
           <Typography variant={"h3"} className="uppercase">
             Page Not Found
           </Typography>
-          <Typography className="text-center">
+          <Typography className="text-center" variant={"sub"}>
             We apologize, but the page you are looking for does not exist. It
             may have been moved, deleted, or the URL may be incorrect. Please
             check the URL and try again. If you continue to experience issues,

@@ -15,11 +15,11 @@ function Loader({
 
   return (
     <Box
-      className={classNames("bg-paper", className, {
+      className={classNames("bg-paper p-6 md:pb-20", className, {
         "min-h-screen": minFullScreen,
       })}
     >
-      <Box preset={"stack-center"} gap={8} className="pb-36">
+      <Box preset={"stack-center"} gap={8}>
         <Box preset={"stack-center"} className="max-w-lg pb-10">
           <Brand />
           <Separator />
