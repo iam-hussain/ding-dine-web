@@ -16,11 +16,14 @@ import {
 import { Switch } from "@/components/atoms/switch";
 import fetcher from "@/lib/fetcher";
 import { RootState } from "@/store";
+import Typography from "@/components/atoms/typography";
 
 export function FeatureFlagForm() {
   const featureFlags = useSelector(
     (state: RootState) => state.base.featureFlags
   );
+
+  console.log({ featureFlags });
 
   const featureFlagsFormData = getFeatureFlagForm(featureFlags);
 
@@ -28,23 +31,18 @@ export function FeatureFlagForm() {
     defaultValues: featureFlags,
   });
 
-  const {
-    formState: { isDirty, isSubmitting },
-  } = form;
+  const { setError, formState } = form;
+  const { isDirty, isSubmitting, errors } = formState;
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (variables) => fetcher.patch(`/store/feature-flags`, variables),
+    mutationFn: (body) =>
+      fetcher.patch(`/store/feature-flags`, { body, setError }),
     onSuccess: async (data: any) => {
       form.reset(data);
       await queryClient.invalidateQueries({ queryKey: ["store"] });
       toast.success(`Store feature flags are updated successfully! 🚀`);
-    },
-    onError: () => {
-      toast.error(
-        `Unable to update store feature flags. Please review the entered information and try again. If the issue persists, contact support for further assistance.`
-      );
     },
   });
 
@@ -64,7 +62,7 @@ export function FeatureFlagForm() {
                 key={each.key}
                 name={each.key}
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-2">
+                  <FormItem className="flex flex-row items-center justify-between gap-2 p-3 border rounded-lg shadow-sm">
                     <div className="space-y-0.5">
                       <FormLabel>{each.label}</FormLabel>
                       {each.info && (
@@ -88,12 +86,15 @@ export function FeatureFlagForm() {
           </div>
         </div>
         <Button
-          className="md:w-auto w-full"
+          className="w-full md:w-auto"
           type="submit"
           disabled={!isDirty || isSubmitting || mutation.isPending}
         >
           Save
         </Button>
+        {errors.root && (
+          <Typography variant={"error"}>{errors.root.message}</Typography>
+        )}
       </form>
     </Form>
   );

@@ -16,7 +16,7 @@ function AvatarBadge({
   return (
     <Box>
       <AvatarCircle name={hed} image={image} />
-      <Box preset={"stack-start"} gap={0}>
+      <Box preset={"col-start"} gap={0}>
         <Typography variant={"h6"}>{hed}</Typography>
         <Typography variant={"sub"}>{dek}</Typography>
       </Box>

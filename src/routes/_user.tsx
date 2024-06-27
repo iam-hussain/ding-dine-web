@@ -1,7 +1,7 @@
 import TopMenu from "@/components/organisms/top-menu";
 import UserMenu from "@/components/organisms/user-menu";
 import { shouldBeLoggedIn } from "@/lib/middleware";
-import { meQueryOptions } from "@/lib/query-options";
+import { meQueryOptions } from "@/helpers/query-options";
 import { classNames } from "@/lib/utils";
 import { RootState } from "@/store";
 import { setUser } from "@/store/baseSlice";

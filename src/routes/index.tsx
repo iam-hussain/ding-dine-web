@@ -11,9 +11,9 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <Box preset="stack-center" className="w-full min-h-screen">
+    <Box preset="col-center" className="w-full min-h-screen">
       <Box preset="grid-split" gap={0} className="w-full max-w-6xl md:gap-10">
-        <Box preset="stack-center" className="order-last p-6 md:order-none">
+        <Box preset="col-center" className="order-last p-6 md:order-none">
           <img
             src={EatingTogether}
             alt="Eat Together"
@@ -21,11 +21,11 @@ function Index() {
           />
         </Box>
         <Box
-          preset="stack-center"
+          preset="col-center"
           gap={10}
           className="container px-4 py-10 mx-auto grow"
         >
-          <Box preset="stack-center" className="">
+          <Box preset="col-center" className="">
             <Brand />
             <Typography
               variant={"sub"}
@@ -40,7 +40,7 @@ function Index() {
           </Box>
 
           <Box preset="grid-split" gap={8} className="hidden">
-            <Box preset={"stack-center"} className="p-4 px-6 bg-background">
+            <Box preset={"col-center"} className="p-4 px-6 bg-background">
               <Typography variant="h4" color="info">
                 For Restaurant Managers
               </Typography>
@@ -55,7 +55,7 @@ function Index() {
               </Typography>
             </Box>
 
-            <Box preset={"stack-center"} className="p-4 px-6 bg-background">
+            <Box preset={"col-center"} className="p-4 px-6 bg-background">
               <Typography variant="h4" color="info">
                 For Customers
               </Typography>

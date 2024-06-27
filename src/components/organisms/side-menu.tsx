@@ -21,36 +21,47 @@ type Menu = {
 };
 
 const appMenus: Menu[] = [
-  { icon: "MdOutlineSpaceDashboard", label: "Dashboard", link: "/dashboard" },
-  { icon: "LuPrinter", label: "Billing System", link: "/store/pos" },
-  { icon: "RiBillLine", label: "Order Management", link: "/store/orders" },
+  { icon: "LuPrinter", label: "Billing System", link: "/store/$slug/pos" },
+  {
+    icon: "RiBillLine",
+    label: "Order Management",
+    link: "/store/$slug/orders",
+  },
   {
     icon: "MdOutlineSoupKitchen",
     label: "Kitchen Display",
-    link: "/store/kitchen",
+    link: "/store/$slug/kitchen",
   },
   {
     icon: "PiShoppingCartSimpleBold",
     label: "Customer Display",
-    link: "/store/display",
+    link: "/store/$slug/display",
   },
 ];
 
 const settingMenus: Menu[] = [
-  { icon: "MdStorefront", label: "Store", link: "/store" },
+  { icon: "MdStorefront", label: "Store", link: "/store/$slug" },
   {
     icon: "HiOutlineCalendar",
     label: "Availability",
-    link: "/store/availability",
+    link: "/store/$slug/availability",
   },
-  { icon: "MdOutlineFastfood", label: "Products", link: "/store/product" },
-  { icon: "LuTag", label: "Category", link: "/store/category" },
+  {
+    icon: "MdOutlineFastfood",
+    label: "Products",
+    link: "/store/$slug/product",
+  },
+  { icon: "LuTag", label: "Category", link: "/store/$slug/category" },
   {
     icon: "LuGroup",
     label: "Kitchen Group",
     link: "/store/group",
   },
-  { icon: "IoSettingsOutline", label: "Settings", link: "/store/settings" },
+  {
+    icon: "IoSettingsOutline",
+    label: "Settings",
+    link: "/store/$slug/settings",
+  },
 ];
 
 const variants = {
@@ -90,7 +101,7 @@ function SideMenu({ className }: { className?: string }) {
           className
         )}
       >
-        <Box preset={"stack-start"} className="h-full overflow-hidden">
+        <Box preset={"col-start"} className="h-full overflow-hidden">
           <Box>
             <AvatarBadge hed={store.name} dek={store.slug} />
             <Button
@@ -105,7 +116,7 @@ function SideMenu({ className }: { className?: string }) {
           <Separator />
 
           <ScrollArea className="w-full grow">
-            <Box preset={"stack-start"} gap={1}>
+            <Box preset={"col-start"} gap={1}>
               {appMenus.map((each, key) => (
                 <CustomLink
                   key={key}
@@ -113,6 +124,9 @@ function SideMenu({ className }: { className?: string }) {
                   iconName={each.icon}
                   to={each.link as any}
                   onClick={() => handleSidebarToggle()}
+                  params={{
+                    slug: store.slug,
+                  }}
                 >
                   {each.label}
                 </CustomLink>
@@ -125,6 +139,9 @@ function SideMenu({ className }: { className?: string }) {
                   iconName={each.icon}
                   to={each.link as any}
                   onClick={() => handleSidebarToggle()}
+                  params={{
+                    slug: store.slug,
+                  }}
                 >
                   {each.label}
                 </CustomLink>

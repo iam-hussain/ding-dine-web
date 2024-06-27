@@ -12,15 +12,16 @@ const boxStyles = cva("w-full", {
       "row-responsive":
         "flex md:flex-row flex-col justify-start items-center md:items-start",
       "row-space-between": "flex flex-row justify-between items-center",
-      "stack-center": "flex flex-col justify-center items-center",
-      "stack-start": "flex flex-col justify-start items-start",
-      "stack-responsive":
+      "col-center": "flex flex-col justify-center items-center",
+      "col-start": "flex flex-col justify-start items-start",
+      "col-responsive":
         "flex md:flex-col flex-row justify-start items-center w-auto",
-      "stack-top-center": "flex flex-col justify-start items-center",
+      "col-top-center": "flex flex-col justify-start items-center",
       "grid-center": "grid justify-center items-center",
       "grid-top-center": "grid justify-start items-center",
       "grid-cols-12": "grid grid-cols-12",
       "grid-split": "grid md:grid-cols-2 grid-cols-1",
+
       "grid-4/2": "grid md:grid-cols-4 grid-cols-2",
       "grid-4/2-lg": "grid lg:grid-cols-4 grid-cols-2 auto-cols-max",
     },
@@ -35,7 +36,7 @@ const boxStyles = cva("w-full", {
     },
     variant: {
       none: "",
-      page: "max-w-6xl w-full h-full p-4 md:p-6 mx-auto",
+      page: "max-w-6xl w-full h-full p-6 md:p-8 mx-auto",
     },
   },
   defaultVariants: {

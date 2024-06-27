@@ -25,13 +25,13 @@ function LayoutComponent() {
             className="w-auto m-auto md:max-w-sm"
           />
         </Box>
-        <Box preset={"stack-center"} className="h-full grow" gap={8}>
+        <Box preset={"col-center"} className="h-full grow" gap={8}>
           <Box
-            preset={"stack-center"}
+            preset={"col-center"}
             gap={2}
             className="w-full max-w-sm p-6 rounded-lg bg-background"
           >
-            <Box preset={"stack-center"} gap={2} className="justify-between">
+            <Box preset={"col-center"} gap={2} className="justify-between">
               <Link to={"/"}>
                 <Brand iconSize={"medium"} fontSize={"medium"} />
               </Link>

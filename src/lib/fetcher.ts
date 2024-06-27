@@ -80,22 +80,22 @@ export interface FetcherOptions {
   ) => void;
 }
 // Function to fetch data using the GET method
-fetcher.get = (path: string, options: FetcherOptions) => {
+fetcher.get = (path: string, options: FetcherOptions = {}) => {
   return fetcher(path, { method: "GET", ...options });
 };
 
 // Function to fetch data using the POST method
-fetcher.post = (path: string, options: FetcherOptions) => {
+fetcher.post = (path: string, options: FetcherOptions = {}) => {
   return fetcher(path, { method: "POST", ...options });
 };
 
 // Function to fetch data using the PATCH method
-fetcher.patch = (path: string, options: FetcherOptions) => {
+fetcher.patch = (path: string, options: FetcherOptions = {}) => {
   return fetcher(path, { method: "PATCH", ...options });
 };
 
 // Function to fetch data using the DELETE method
-fetcher.delete = (path: string, options: FetcherOptions) => {
+fetcher.delete = (path: string, options: FetcherOptions = {}) => {
   return fetcher(path, { method: "DELETE", ...options });
 };
 

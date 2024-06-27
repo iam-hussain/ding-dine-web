@@ -18,10 +18,10 @@ import { Route as StoreImport } from './routes/_store'
 import { Route as SplitImport } from './routes/_split'
 import { Route as IndexImport } from './routes/index'
 import { Route as UserHomeImport } from './routes/_user/home'
-import { Route as SplitStoreImport } from './routes/_split/store'
 import { Route as SplitLoginImport } from './routes/_split/login'
 import { Route as StoreStoreSlugIndexImport } from './routes/_store/store/$slug/index'
-import { Route as StoreStoreSlugSettingImport } from './routes/_store/store/$slug/setting'
+import { Route as StoreStoreSlugSettingsImport } from './routes/_store/store/$slug/settings'
+import { Route as StoreStoreSlugProductImport } from './routes/_store/store/$slug/product'
 
 // Create/Update Routes
 
@@ -60,11 +60,6 @@ const UserHomeRoute = UserHomeImport.update({
   getParentRoute: () => UserRoute,
 } as any)
 
-const SplitStoreRoute = SplitStoreImport.update({
-  path: '/store',
-  getParentRoute: () => SplitRoute,
-} as any)
-
 const SplitLoginRoute = SplitLoginImport.update({
   path: '/login',
   getParentRoute: () => SplitRoute,
@@ -75,8 +70,13 @@ const StoreStoreSlugIndexRoute = StoreStoreSlugIndexImport.update({
   getParentRoute: () => StoreRoute,
 } as any)
 
-const StoreStoreSlugSettingRoute = StoreStoreSlugSettingImport.update({
-  path: '/store/$slug/setting',
+const StoreStoreSlugSettingsRoute = StoreStoreSlugSettingsImport.update({
+  path: '/store/$slug/settings',
+  getParentRoute: () => StoreRoute,
+} as any)
+
+const StoreStoreSlugProductRoute = StoreStoreSlugProductImport.update({
+  path: '/store/$slug/product',
   getParentRoute: () => StoreRoute,
 } as any)
 
@@ -133,13 +133,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplitLoginImport
       parentRoute: typeof SplitImport
     }
-    '/_split/store': {
-      id: '/_split/store'
-      path: '/store'
-      fullPath: '/store'
-      preLoaderRoute: typeof SplitStoreImport
-      parentRoute: typeof SplitImport
-    }
     '/_user/home': {
       id: '/_user/home'
       path: '/home'
@@ -147,11 +140,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserHomeImport
       parentRoute: typeof UserImport
     }
-    '/_store/store/$slug/setting': {
-      id: '/_store/store/$slug/setting'
-      path: '/store/$slug/setting'
-      fullPath: '/store/$slug/setting'
-      preLoaderRoute: typeof StoreStoreSlugSettingImport
+    '/_store/store/$slug/product': {
+      id: '/_store/store/$slug/product'
+      path: '/store/$slug/product'
+      fullPath: '/store/$slug/product'
+      preLoaderRoute: typeof StoreStoreSlugProductImport
+      parentRoute: typeof StoreImport
+    }
+    '/_store/store/$slug/settings': {
+      id: '/_store/store/$slug/settings'
+      path: '/store/$slug/settings'
+      fullPath: '/store/$slug/settings'
+      preLoaderRoute: typeof StoreStoreSlugSettingsImport
       parentRoute: typeof StoreImport
     }
     '/_store/store/$slug/': {
@@ -168,9 +168,10 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  SplitRoute: SplitRoute.addChildren({ SplitLoginRoute, SplitStoreRoute }),
+  SplitRoute: SplitRoute.addChildren({ SplitLoginRoute }),
   StoreRoute: StoreRoute.addChildren({
-    StoreStoreSlugSettingRoute,
+    StoreStoreSlugProductRoute,
+    StoreStoreSlugSettingsRoute,
     StoreStoreSlugIndexRoute,
   }),
   UserRoute: UserRoute.addChildren({ UserHomeRoute }),
@@ -200,14 +201,14 @@ export const routeTree = rootRoute.addChildren({
     "/_split": {
       "filePath": "_split.tsx",
       "children": [
-        "/_split/login",
-        "/_split/store"
+        "/_split/login"
       ]
     },
     "/_store": {
       "filePath": "_store.tsx",
       "children": [
-        "/_store/store/$slug/setting",
+        "/_store/store/$slug/product",
+        "/_store/store/$slug/settings",
         "/_store/store/$slug/"
       ]
     },
@@ -227,16 +228,16 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_split/login.tsx",
       "parent": "/_split"
     },
-    "/_split/store": {
-      "filePath": "_split/store.tsx",
-      "parent": "/_split"
-    },
     "/_user/home": {
       "filePath": "_user/home.tsx",
       "parent": "/_user"
     },
-    "/_store/store/$slug/setting": {
-      "filePath": "_store/store/$slug/setting.tsx",
+    "/_store/store/$slug/product": {
+      "filePath": "_store/store/$slug/product.tsx",
+      "parent": "/_store"
+    },
+    "/_store/store/$slug/settings": {
+      "filePath": "_store/store/$slug/settings.tsx",
       "parent": "/_store"
     },
     "/_store/store/$slug/": {

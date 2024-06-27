@@ -15,8 +15,9 @@ const typographyStyles = cva("w-auto text-foreground", {
       h5: "text-md font-semibold",
       h6: "text-base font-semibold",
       sub: "text-sm text-foreground/80",
+      mute: "text-[0.8rem] text-muted-foreground",
       error: "text-[0.8rem] font-medium mt-1 text-destructive",
-      caption: "text-xl font-medium",
+      caption: "text-base font-medium",
 
       overline: "text-xs uppercase tracking-wide",
       blockquote: "mt-6 border-l-2 pl-6 italic",

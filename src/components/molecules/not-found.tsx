@@ -10,17 +10,17 @@ function NotFound({ className }: { className?: string }) {
     <Box
       className={classNames("min-h-screen bg-paper p-6 md:pb-20", className)}
     >
-      <Box preset={"stack-center"} gap={8}>
-        <Box preset={"stack-center"} className="max-w-lg">
+      <Box preset={"col-center"} gap={8}>
+        <Box preset={"col-center"} className="max-w-lg">
           <Brand />
           <Separator />
         </Box>
-        <Box preset={"stack-center"} gap={4} className="max-w-lg">
+        <Box preset={"col-center"} gap={4} className="max-w-lg">
           <Typography className="uppercase text-9xl">404</Typography>
           <Typography variant={"h3"} className="uppercase">
             Page Not Found
           </Typography>
-          <Typography className="text-center" variant={"sub"}>
+          <Typography className="text-center" variant={"mute"}>
             We apologize, but the page you are looking for does not exist. It
             may have been moved, deleted, or the URL may be incorrect. Please
             check the URL and try again. If you continue to experience issues,

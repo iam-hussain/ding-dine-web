@@ -31,8 +31,8 @@ function Login() {
   };
 
   return (
-    <Box preset={"stack-center"} className="w-full max-w-sm bg-background">
-      <Box preset={"stack-center"} gap={0} className="w-full">
+    <Box preset={"col-center"} className="w-full max-w-sm bg-background">
+      <Box preset={"col-center"} gap={0} className="w-full">
         <Typography as={"h3"} variant={"h3"} className="w-full">
           Welcome back.
         </Typography>
@@ -40,10 +40,10 @@ function Login() {
           Login to your account.
         </Typography>
       </Box>
-      <Box preset={"stack-center"} className="w-full">
+      <Box preset={"col-center"} className="w-full">
         <LoginForm onSuccess={onSuccessHandler} />
       </Box>
-      <Box preset={"stack-center"} className="w-full mt-4" gap={2}>
+      <Box preset={"col-center"} className="w-full mt-4" gap={2}>
         <Typography as={"p"} variant={"sub"} className="w-full">
           Need it for your store?
         </Typography>

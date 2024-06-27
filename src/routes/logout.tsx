@@ -11,7 +11,7 @@ export const Route = createFileRoute("/logout")({
 
 function Logout() {
   return (
-    <Box preset={"stack-center"} className="w-full max-w-sm bg-background">
+    <Box preset={"col-center"} className="w-full max-w-sm bg-background">
       <Typography as={"h3"} variant={"h3"} className="w-full">
         Logging out...
       </Typography>

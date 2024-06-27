@@ -20,7 +20,9 @@ declare module "@tanstack/react-router" {
 const router = createRouter({
   routeTree,
   defaultPendingComponent: () => <Loader minFullScreen={true} />,
-  defaultErrorComponent: ({ error }) => <Error error={error} />,
+  defaultErrorComponent: ({ error }) => (
+    <Error error={error} minFullScreen={true} />
+  ),
   defaultNotFoundComponent: () => <NotFound />,
   context: {
     queryClient,

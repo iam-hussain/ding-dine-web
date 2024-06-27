@@ -66,7 +66,7 @@ function UserMenu({ className }: { className?: string }) {
           className
         )}
       >
-        <Box preset={"stack-start"} className="h-full overflow-hidden">
+        <Box preset={"col-start"} className="h-full overflow-hidden">
           <Box>
             <AvatarBadge hed={user.fullName} dek={user.username} />
             <Button
@@ -81,7 +81,7 @@ function UserMenu({ className }: { className?: string }) {
           <Separator />
 
           <ScrollArea className="w-full grow">
-            <Box preset={"stack-start"} gap={1}>
+            <Box preset={"col-start"} gap={1}>
               {userMenus.map((each, key) => (
                 <CustomLink
                   key={key}

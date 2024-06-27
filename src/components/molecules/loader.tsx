@@ -19,12 +19,12 @@ function Loader({
         "min-h-screen": minFullScreen,
       })}
     >
-      <Box preset={"stack-center"} gap={8}>
-        <Box preset={"stack-center"} className="max-w-lg pb-10">
+      <Box preset={"col-center"} gap={8}>
+        <Box preset={"col-center"} className="max-w-lg pb-10">
           <Brand />
           <Separator />
         </Box>{" "}
-        <Box preset={"stack-center"} gap={4} className="max-w-lg">
+        <Box preset={"col-center"} gap={4} className="max-w-lg">
           <motion.div
             className="flex items-center justify-center space-x-2"
             initial={{ rotate: 0 }}

@@ -1,5 +1,5 @@
 import Box from "@/components/atoms/box";
-import Icon, { IconKey } from "@/components/atoms/icon";
+import { IconKey } from "@/components/atoms/icon";
 import { CustomLink } from "@/components/atoms/link";
 import Typography from "@/components/atoms/typography";
 import AvatarCircle from "@/components/molecules/avatar-circle";
@@ -52,14 +52,14 @@ function Store() {
 
   return (
     <Box preset={"row-responsive"} variant={"page"} data-name={"page"} gap={6}>
-      <Box preset={"stack-responsive"} data-name={"avatar"}>
+      <Box preset={"col-responsive"} data-name={"avatar"}>
         <AvatarCircle
           name={store.slug}
           image={store?.image}
           className="w-16 h-16 md:h-60 md:w-60"
           avatarClassName="md:text-6xl"
         />
-        <Box preset={"stack-center"} className="w-auto" gap={0}>
+        <Box preset={"col-center"} className="w-auto" gap={0}>
           <Typography variant={"h2"} className="text-md md:text-4xl">
             {store.name}
           </Typography>
@@ -68,9 +68,9 @@ function Store() {
           </Typography>
         </Box>
       </Box>
-      <Box preset={"stack-start"} className="grow" gap={4}>
+      <Box preset={"col-start"} className="grow" gap={4}>
         <Typography variant={"caption"}>Stores</Typography>
-        <Box preset={"stack-center"} gap={4}>
+        <Box preset={"col-center"} gap={4}>
           {appMenus.map((item, index) => (
             <Box
               key={`item_${index}`}
@@ -78,16 +78,15 @@ function Store() {
               className="h-full p-4 bg-background min-w-[150px]"
               gap={4}
             >
-              <Icon name={item.icon} className="w-10 h-10" />
-              <Box preset={"stack-start"} gap={0} className="grow">
+              <Box preset={"col-start"} gap={0} className="grow">
                 <CustomLink variant={"link"} className="h-auto p-0">
-                  <Typography variant={"h6"}>{item.label}</Typography>
+                  <Typography variant={"caption"}>{item.label}</Typography>
                 </CustomLink>
-                <Typography variant={"sub"}>{item.description}</Typography>
+                <Typography variant={"mute"}>{item.description}</Typography>
               </Box>
               <CustomLink
                 variant={"outline"}
-                iconName="BiShow"
+                iconName={item.icon}
                 to={item.link}
               />
             </Box>

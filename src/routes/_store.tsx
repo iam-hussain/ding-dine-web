@@ -2,7 +2,7 @@ import SideMenu from "@/components/organisms/side-menu";
 import TopMenu from "@/components/organisms/top-menu";
 import UserMenu from "@/components/organisms/user-menu";
 import { shouldBeLoggedIn } from "@/lib/middleware";
-import { meQueryOptions, storeQueryOptions } from "@/lib/query-options";
+import { meQueryOptions, storeQueryOptions } from "@/helpers/query-options";
 import { classNames } from "@/lib/utils";
 import { RootState } from "@/store";
 import { setStore, setUser } from "@/store/baseSlice";
