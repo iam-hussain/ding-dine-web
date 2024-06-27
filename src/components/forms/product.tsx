@@ -68,10 +68,10 @@ function ProductForm({
   } = form;
 
   const mutation = useMutation({
-    mutationFn: (variables) =>
+    mutationFn: (body) =>
       id
-        ? fetcher.patch(`/store/product/${id}`, variables)
-        : fetcher.post("/store/product", variables),
+        ? fetcher.patch(`/store/product/${id}`, { body })
+        : fetcher.post("/store/product", { body }),
     onSuccess: async (data: any) => {
       if (onSuccess) {
         onSuccess();
@@ -236,7 +236,7 @@ function ProductForm({
         />
         <div className="pt-4 text-right">
           <Button
-            className="md:w-auto w-full"
+            className="w-full md:w-auto"
             type="submit"
             disabled={!isDirty || isSubmitting || mutation.isPending}
           >

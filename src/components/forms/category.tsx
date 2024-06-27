@@ -55,10 +55,10 @@ function CategoryForm({
   } = form;
 
   const mutation = useMutation({
-    mutationFn: (variables) =>
+    mutationFn: (body) =>
       id
-        ? fetcher.patch(`/store/category/${id}`, variables)
-        : fetcher.post("/store/category", variables),
+        ? fetcher.patch(`/store/category/${id}`, { body })
+        : fetcher.post("/store/category", { body }),
     onSuccess: async (data: any) => {
       form.reset({
         name: data.name,
@@ -142,7 +142,7 @@ function CategoryForm({
         />
         <div className="pt-4 text-right">
           <Button
-            className="md:w-auto w-full"
+            className="w-full md:w-auto"
             type="submit"
             disabled={!isDirty || isSubmitting || mutation.isPending}
           >

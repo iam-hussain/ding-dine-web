@@ -34,3 +34,12 @@ export const productsQueryOptions = () =>
     queryFn: () => fetcher("/store/products"),
     ...noRefetchConfigs,
   });
+
+export const tokenQueryOptions = (enableKitchenCategory: boolean = false) =>
+  queryOptions({
+    queryKey: ["tokens"],
+    queryFn: () =>
+      fetcher(
+        `/store/tokens?category=${enableKitchenCategory ? "true" : "false"}`
+      ),
+  });

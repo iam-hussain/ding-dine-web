@@ -9,8 +9,8 @@ function useItemQuery() {
   const queryClient = useQueryClient();
   const updateItemMutation = useMutation({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    mutationFn: ({ id, tokenShortId, ...variables }) =>
-      fetcher.post(`/store/order/item/${id}`, variables),
+    mutationFn: ({ id, tokenShortId, ...body }) =>
+      fetcher.post(`/store/order/item/${id}`, { body }),
     onSuccess: async (_order: any, variables: any) => {
       queryClient.invalidateQueries({
         queryKey: ["tokens"],

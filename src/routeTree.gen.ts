@@ -22,6 +22,11 @@ import { Route as SplitLoginImport } from './routes/_split/login'
 import { Route as StoreStoreSlugIndexImport } from './routes/_store/store/$slug/index'
 import { Route as StoreStoreSlugSettingsImport } from './routes/_store/store/$slug/settings'
 import { Route as StoreStoreSlugProductImport } from './routes/_store/store/$slug/product'
+import { Route as StoreStoreSlugPosImport } from './routes/_store/store/$slug/pos'
+import { Route as StoreStoreSlugOrderImport } from './routes/_store/store/$slug/order'
+import { Route as StoreStoreSlugKitchenImport } from './routes/_store/store/$slug/kitchen'
+import { Route as StoreStoreSlugGroupImport } from './routes/_store/store/$slug/group'
+import { Route as StoreStoreSlugCategoryImport } from './routes/_store/store/$slug/category'
 
 // Create/Update Routes
 
@@ -77,6 +82,31 @@ const StoreStoreSlugSettingsRoute = StoreStoreSlugSettingsImport.update({
 
 const StoreStoreSlugProductRoute = StoreStoreSlugProductImport.update({
   path: '/store/$slug/product',
+  getParentRoute: () => StoreRoute,
+} as any)
+
+const StoreStoreSlugPosRoute = StoreStoreSlugPosImport.update({
+  path: '/store/$slug/pos',
+  getParentRoute: () => StoreRoute,
+} as any)
+
+const StoreStoreSlugOrderRoute = StoreStoreSlugOrderImport.update({
+  path: '/store/$slug/order',
+  getParentRoute: () => StoreRoute,
+} as any)
+
+const StoreStoreSlugKitchenRoute = StoreStoreSlugKitchenImport.update({
+  path: '/store/$slug/kitchen',
+  getParentRoute: () => StoreRoute,
+} as any)
+
+const StoreStoreSlugGroupRoute = StoreStoreSlugGroupImport.update({
+  path: '/store/$slug/group',
+  getParentRoute: () => StoreRoute,
+} as any)
+
+const StoreStoreSlugCategoryRoute = StoreStoreSlugCategoryImport.update({
+  path: '/store/$slug/category',
   getParentRoute: () => StoreRoute,
 } as any)
 
@@ -140,6 +170,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserHomeImport
       parentRoute: typeof UserImport
     }
+    '/_store/store/$slug/category': {
+      id: '/_store/store/$slug/category'
+      path: '/store/$slug/category'
+      fullPath: '/store/$slug/category'
+      preLoaderRoute: typeof StoreStoreSlugCategoryImport
+      parentRoute: typeof StoreImport
+    }
+    '/_store/store/$slug/group': {
+      id: '/_store/store/$slug/group'
+      path: '/store/$slug/group'
+      fullPath: '/store/$slug/group'
+      preLoaderRoute: typeof StoreStoreSlugGroupImport
+      parentRoute: typeof StoreImport
+    }
+    '/_store/store/$slug/kitchen': {
+      id: '/_store/store/$slug/kitchen'
+      path: '/store/$slug/kitchen'
+      fullPath: '/store/$slug/kitchen'
+      preLoaderRoute: typeof StoreStoreSlugKitchenImport
+      parentRoute: typeof StoreImport
+    }
+    '/_store/store/$slug/order': {
+      id: '/_store/store/$slug/order'
+      path: '/store/$slug/order'
+      fullPath: '/store/$slug/order'
+      preLoaderRoute: typeof StoreStoreSlugOrderImport
+      parentRoute: typeof StoreImport
+    }
+    '/_store/store/$slug/pos': {
+      id: '/_store/store/$slug/pos'
+      path: '/store/$slug/pos'
+      fullPath: '/store/$slug/pos'
+      preLoaderRoute: typeof StoreStoreSlugPosImport
+      parentRoute: typeof StoreImport
+    }
     '/_store/store/$slug/product': {
       id: '/_store/store/$slug/product'
       path: '/store/$slug/product'
@@ -170,6 +235,11 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   SplitRoute: SplitRoute.addChildren({ SplitLoginRoute }),
   StoreRoute: StoreRoute.addChildren({
+    StoreStoreSlugCategoryRoute,
+    StoreStoreSlugGroupRoute,
+    StoreStoreSlugKitchenRoute,
+    StoreStoreSlugOrderRoute,
+    StoreStoreSlugPosRoute,
     StoreStoreSlugProductRoute,
     StoreStoreSlugSettingsRoute,
     StoreStoreSlugIndexRoute,
@@ -207,6 +277,11 @@ export const routeTree = rootRoute.addChildren({
     "/_store": {
       "filePath": "_store.tsx",
       "children": [
+        "/_store/store/$slug/category",
+        "/_store/store/$slug/group",
+        "/_store/store/$slug/kitchen",
+        "/_store/store/$slug/order",
+        "/_store/store/$slug/pos",
         "/_store/store/$slug/product",
         "/_store/store/$slug/settings",
         "/_store/store/$slug/"
@@ -231,6 +306,26 @@ export const routeTree = rootRoute.addChildren({
     "/_user/home": {
       "filePath": "_user/home.tsx",
       "parent": "/_user"
+    },
+    "/_store/store/$slug/category": {
+      "filePath": "_store/store/$slug/category.tsx",
+      "parent": "/_store"
+    },
+    "/_store/store/$slug/group": {
+      "filePath": "_store/store/$slug/group.tsx",
+      "parent": "/_store"
+    },
+    "/_store/store/$slug/kitchen": {
+      "filePath": "_store/store/$slug/kitchen.tsx",
+      "parent": "/_store"
+    },
+    "/_store/store/$slug/order": {
+      "filePath": "_store/store/$slug/order.tsx",
+      "parent": "/_store"
+    },
+    "/_store/store/$slug/pos": {
+      "filePath": "_store/store/$slug/pos.tsx",
+      "parent": "/_store"
     },
     "/_store/store/$slug/product": {
       "filePath": "_store/store/$slug/product.tsx",

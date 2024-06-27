@@ -25,7 +25,7 @@ const appMenus: Menu[] = [
   {
     icon: "RiBillLine",
     label: "Order Management",
-    link: "/store/$slug/orders",
+    link: "/store/$slug/order",
   },
   {
     icon: "MdOutlineSoupKitchen",
@@ -55,7 +55,7 @@ const settingMenus: Menu[] = [
   {
     icon: "LuGroup",
     label: "Kitchen Group",
-    link: "/store/group",
+    link: "/store/$slug/group",
   },
   {
     icon: "IoSettingsOutline",

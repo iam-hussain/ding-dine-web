@@ -9,8 +9,8 @@ function useTokenQuery() {
   const queryClient = useQueryClient();
   const updateTokenMutation = useMutation({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    mutationFn: ({ id, shortId, ...variables }) =>
-      fetcher.patch(`/store/token/${id}`, variables),
+    mutationFn: ({ id, shortId, ...body }) =>
+      fetcher.patch(`/store/token/${id}`, { body }),
     onSuccess: async (_data: any, variables: any) => {
       queryClient.invalidateQueries({
         queryKey: ["tokens"],

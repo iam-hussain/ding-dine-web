@@ -22,7 +22,7 @@ function useOrderQuery() {
     useSelector((state: RootState) => state.base.featureFlags);
 
   const upsertOrderMutation = useMutation({
-    mutationFn: (variables) => fetcher.post("/store/order", variables),
+    mutationFn: (body) => fetcher.post("/store/order", { body }),
     onSuccess: async (order: any, variables: OrderUpsertSchemaType) => {
       if (variables.shortId) {
         toast.success(
