@@ -42,4 +42,5 @@ export const tokenQueryOptions = (enableKitchenCategory: boolean = false) =>
       fetcher(
         `/store/tokens?category=${enableKitchenCategory ? "true" : "false"}`
       ),
+    ...noRefetchConfigs,
   });

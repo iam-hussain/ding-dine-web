@@ -4,7 +4,7 @@ import POSForm from "@/components/organisms/point-of-sale/pos-form";
 import CategoriesProvider from "@/components/templates/categories-provider";
 import ProductsProvider from "@/components/templates/products-provider";
 
-export const Route = createFileRoute("/_store/store/$slug/pos")({
+export const Route = createFileRoute("/store/$slug/_screen/pos")({
   ...routeMiddleware.productCategory,
   component: Pos,
 });

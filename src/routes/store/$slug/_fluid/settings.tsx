@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import Box from "@/components/atoms/box";
 import Typography from "@/components/atoms/typography";
 
-export const Route = createFileRoute("/_store/store/$slug/settings")({
+export const Route = createFileRoute("/store/$slug/_fluid/settings")({
   component: Settings,
 });
 

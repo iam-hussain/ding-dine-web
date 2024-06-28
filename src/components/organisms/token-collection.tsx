@@ -1,24 +1,19 @@
-import { useSelector } from "react-redux";
-
-import { RootState } from "@/store";
-import { SortTokensResult } from "@/types";
+import { SortTokensResult, TokenType } from "@/types";
 
 import TokenCard from "../molecules/token-card";
 
 export interface TokenCollectionProps {
   variant: keyof SortTokensResult;
   noItemMessage?: string;
+  tokens: TokenType[];
 }
 
 function TokenCollection({
   variant,
   noItemMessage,
+  tokens = [],
   ...props
 }: TokenCollectionProps) {
-  const tokenData = useSelector((state: RootState) => state.base.token);
-
-  const tokens = tokenData ? tokenData[variant] || [] : [];
-
   if (tokens.length === 0) {
     return (
       <p className="w-full grid-cols-12 py-8 m-auto text-sm text-center text-foreground/80 grow">

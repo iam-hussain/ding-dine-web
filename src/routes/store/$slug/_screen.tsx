@@ -9,7 +9,7 @@ import { setStore, setUser } from "@/store/baseSlice";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
 
-export const Route = createFileRoute("/_store")({
+export const Route = createFileRoute("/store/$slug/_screen")({
   beforeLoad: shouldBeLoggedIn as any,
   component: StoreLayout,
   loader: async ({ context }) => {
@@ -34,9 +34,9 @@ function StoreLayout() {
   const topBarOpen = useSelector((state: RootState) => state.page.topBarOpen);
 
   return (
-    <div className="main-wrapper">
+    <div className="main-screen-wrapper">
       <SideMenu />
-      <main className={"page-main bg-paper"}>
+      <main className={"page-main bg-background"}>
         <TopMenu
           className="fixed z-30 block w-full bg-background"
           showSideBar={true}

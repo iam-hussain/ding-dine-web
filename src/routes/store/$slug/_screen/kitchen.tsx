@@ -8,31 +8,23 @@ import {
 } from "@/components/atoms/tabs-primary";
 import TokenCollection from "@/components/organisms/token-collection";
 import { tokenQueryOptions } from "@/helpers/query-options";
-import { setTokens } from "@/store/baseSlice";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
+import routeLoader from "@/helpers/route-loader";
 
-export const Route = createFileRoute("/_store/store/$slug/kitchen")({
+export const Route = createFileRoute("/store/$slug/_screen/kitchen")({
   component: Kitchen,
-  loader: async ({ context }) => {
-    const { enableKitchenCategory = false } =
-      context.store.getState().base.featureFlags;
-    const queryClient = context.queryClient;
-    const tokens = await queryClient.ensureQueryData(
-      tokenQueryOptions(enableKitchenCategory)
-    );
-
-    if (tokens) {
-      context.store.dispatch(
-        setTokens({
-          placed: tokens?.placed || [],
-          scheduled: tokens?.scheduled || [],
-          completed: tokens?.completed || [],
-        })
-      );
-    }
-  },
+  loader: routeLoader(["me", "store", "tokens"]),
 });
 
 function Kitchen() {
+  const { enableKitchenCategory } = useSelector(
+    (state: RootState) => state.base.featureFlags
+  );
+  const { data: tokenData } = useSuspenseQuery(
+    tokenQueryOptions(enableKitchenCategory)
+  );
   return (
     <div className="flex flex-col items-center justify-center w-full h-full px-6 py-4 align-middle bg-paper">
       <Tabs
@@ -52,14 +44,21 @@ function Kitchen() {
         <div className="flex p-6 bg-background grow h-5/6 ">
           <ScrollArea className={"w-full h-full pr-4"}>
             <TabsContent value="scheduled">
-              <TokenCollection variant="scheduled" />
+              <TokenCollection
+                variant="scheduled"
+                tokens={tokenData["scheduled"] || []}
+              />
             </TabsContent>
             <TabsContent value="progress">
-              <TokenCollection variant="placed" />
+              <TokenCollection
+                variant="placed"
+                tokens={tokenData["placed"] || []}
+              />
             </TabsContent>
             <TabsContent value="completed">
               <TokenCollection
                 variant="completed"
+                tokens={tokenData["completed"] || []}
                 noItemMessage={
                   "No items found (You will see only completed token in last 5 hours)"
                 }

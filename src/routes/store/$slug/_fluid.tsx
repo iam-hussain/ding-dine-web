@@ -9,7 +9,7 @@ import { setStore, setUser } from "@/store/baseSlice";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
 
-export const Route = createFileRoute("/_store")({
+export const Route = createFileRoute("/store/$slug/_fluid")({
   beforeLoad: shouldBeLoggedIn as any,
   component: StoreLayout,
   loader: async ({ context }) => {

@@ -26,15 +26,13 @@ import fetcher from "@/lib/fetcher";
 import { zeroLastSortMethod } from "@/lib/utils";
 import { RootState } from "@/store";
 
-export const Route = createFileRoute("/_store/store/$slug/group")({
+export const Route = createFileRoute("/store/$slug/_fluid/category")({
   ...routeMiddleware.category,
-  component: KitchenGroup,
+  component: Category,
 });
 
-function KitchenGroup() {
-  const categories = useSelector(
-    (state: RootState) => state.base.kitchenCategories
-  );
+function Category() {
+  const categories = useSelector((state: RootState) => state.base.categories);
   const [value, setValue] = useState<
     Partial<
       CategoryUpdateSchemaType & {
@@ -56,13 +54,13 @@ function KitchenGroup() {
       await queryClient.invalidateQueries({ queryKey: ["categories"] });
 
       toast.success(
-        `Kitchen Group with ID ${value.id} has been successfully deleted. 🎉`
+        `Category with ID ${value.id} has been successfully deleted. 🎉`
       );
     },
     onError: (err) => {
       setOpen(false);
       toast.error(
-        `Unable to delete the kitchen group with ID ${value.id}. Please try again later. If the issue persists, contact support for assistance.`
+        `Unable to delete the category with ID ${value.id}. Please try again later. If the issue persists, contact support for assistance.`
       );
       console.error(err);
     },
@@ -180,7 +178,7 @@ function KitchenGroup() {
         return dateA > dateB ? 1 : -1;
       },
       cell: ({ row }) => (
-        <div className="text-center text-foreground/70">
+        <div className="text-left text-foreground/70">
           {formatDateTime(row.getValue("updatedAt"))}
         </div>
       ),
@@ -238,9 +236,7 @@ function KitchenGroup() {
     <Dialog open={open} onOpenChange={setOpen}>
       <div className="flex flex-col items-start justify-start w-full h-full p-6 m-auto align-top grow max-w-screen-3xl">
         <section className="flex justify-between w-full h-auto mb-4">
-          <h1 className="text-xl font-semibold md:text-2xl">
-            Manage Kitchen Group
-          </h1>
+          <h1 className="text-xl font-semibold md:text-2xl">Manage Category</h1>
           <DialogTrigger asChild>
             <Button
               className="flex gap-2"
@@ -264,16 +260,15 @@ function KitchenGroup() {
             <>
               <DialogHeader>
                 <DialogTitle>
-                  {value.id ? "Edit" : "Create"} kitchen group
+                  {value.id ? "Edit" : "Create"} category
                 </DialogTitle>
                 <DialogDescription>
                   {value.id
-                    ? `You are editing the kitchen group with id: ${value.id}.`
-                    : "You can create a kitchen group here."}
+                    ? `You are editing the category with id: ${value.id}.`
+                    : "You can create a category here."}
                 </DialogDescription>
               </DialogHeader>
               <CategoryForm
-                type="KITCHEN"
                 defaultValues={value}
                 onSuccess={() => {
                   if (!value.id) {
@@ -285,9 +280,9 @@ function KitchenGroup() {
           ) : (
             <>
               <DialogHeader>
-                <DialogTitle>Delete kitchen group</DialogTitle>
+                <DialogTitle>Delete category</DialogTitle>
                 <DialogDescription>
-                  Are you sure you want to delete the kitchen group with ID{" "}
+                  Are you sure you want to delete the category with ID{" "}
                   <strong className="text-destructive">{value.id}</strong> and
                   the name{" "}
                   <strong className="text-destructive">{value.name}</strong>?
