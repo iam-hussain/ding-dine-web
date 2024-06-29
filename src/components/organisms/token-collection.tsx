@@ -1,6 +1,7 @@
 import { SortTokensResult, TokenType } from "@/types";
 
 import TokenCard from "../molecules/token-card";
+import Box from "../atoms/box";
 
 export interface TokenCollectionProps {
   variant: keyof SortTokensResult;
@@ -16,13 +17,17 @@ function TokenCollection({
 }: TokenCollectionProps) {
   if (tokens.length === 0) {
     return (
-      <p className="w-full grid-cols-12 py-8 m-auto text-sm text-center text-foreground/80 grow">
+      <Box preset={"row-center"} gap={6}>
         {noItemMessage || "No tokens found"}
-      </p>
+      </Box>
     );
   }
   return (
-    <div className="flex flex-wrap items-start justify-center gap-6 m-0 align-top">
+    <Box
+      preset={"row-start"}
+      className="flex-wrap items-start justify-center"
+      gap={6}
+    >
       {tokens.map(({ items, ...token }) => (
         <TokenCard
           key={token.id}
@@ -32,7 +37,7 @@ function TokenCollection({
           {...props}
         />
       ))}
-    </div>
+    </Box>
   );
 }
 

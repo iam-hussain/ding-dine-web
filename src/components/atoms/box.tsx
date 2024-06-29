@@ -1,14 +1,15 @@
 import { cva, VariantProps } from "class-variance-authority";
-import clsx from "clsx";
-import React from "react";
+import React, { ElementType } from "react";
 
-import { cn } from "@/lib/utils";
+import { classNames } from "@/lib/utils";
 
 const boxStyles = cva("w-full", {
   variants: {
     preset: {
+      none: "",
       "row-center": "flex flex-row justify-center items-center",
       "row-start": "flex flex-row justify-start items-center",
+      "row-stretch": "flex flex-row justify-start items-stretch",
       "row-responsive":
         "flex md:flex-row flex-col justify-start items-center md:items-start",
       "row-space-between": "flex flex-row justify-between items-center",
@@ -21,9 +22,6 @@ const boxStyles = cva("w-full", {
       "grid-top-center": "grid justify-start items-center",
       "grid-cols-12": "grid grid-cols-12",
       "grid-split": "grid md:grid-cols-2 grid-cols-1",
-
-      "grid-4/2": "grid md:grid-cols-4 grid-cols-2",
-      "grid-4/2-lg": "grid lg:grid-cols-4 grid-cols-2 auto-cols-max",
     },
     gap: {
       0: "gap-0",
@@ -36,7 +34,11 @@ const boxStyles = cva("w-full", {
     },
     variant: {
       none: "",
-      page: "max-w-6xl w-full h-full p-6 md:p-8 mx-auto",
+      container: "max-w-6xl w-full h-full p-6 md:p-8 mx-auto",
+      "page-screen": "h-full max-h-screen w-full",
+      "page-fluid": "h-auto min-h-svh w-full",
+      "page-content": "h-auto max-h-screen w-full",
+      "page-fill": "h-full min-h-svh w-full",
     },
   },
   defaultVariants: {
@@ -47,11 +49,13 @@ const boxStyles = cva("w-full", {
 });
 
 interface BoxProps extends VariantProps<typeof boxStyles> {
+  as?: ElementType;
   className?: string;
   children: React.ReactNode;
 }
 
 const Box: React.FC<BoxProps> = ({
+  as: Component = "div",
   children,
   className,
   preset,
@@ -60,13 +64,13 @@ const Box: React.FC<BoxProps> = ({
   ...props
 }) => {
   return (
-    <div
+    <Component
       data-name={"box"}
-      className={cn(clsx(boxStyles({ preset, variant, gap }), className))}
+      className={classNames(boxStyles({ preset, variant, gap }), className)}
       {...props}
     >
       {children}
-    </div>
+    </Component>
   );
 };
 

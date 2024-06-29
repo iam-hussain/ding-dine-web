@@ -1,4 +1,3 @@
-import routeMiddleware from "@/helpers/route-middleware";
 import { createFileRoute } from "@tanstack/react-router";
 import { CategoryUpdateSchemaType } from "@iam-hussain/qd-copilot";
 import { CaretSortIcon } from "@radix-ui/react-icons";
@@ -25,9 +24,12 @@ import { formatDateTime } from "@/lib/date-time";
 import fetcher from "@/lib/fetcher";
 import { zeroLastSortMethod } from "@/lib/utils";
 import { RootState } from "@/store";
+import routeCommon from "@/helpers/route-common";
+import routeLoader from "@/helpers/route-loader";
 
 export const Route = createFileRoute("/store/$slug/_fluid/group")({
-  ...routeMiddleware.category,
+  ...routeCommon,
+  loader: routeLoader(["me", "store", "categories"]),
   component: KitchenGroup,
 });
 

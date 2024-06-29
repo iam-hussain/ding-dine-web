@@ -3,6 +3,7 @@ import {
   storeQueryOptions,
   categoriesQueryOptions,
   tokenQueryOptions,
+  productsQueryOptions,
 } from "@/helpers/query-options";
 import {
   setCategories,
@@ -17,7 +18,7 @@ type loaderItems = "me" | "store" | "products" | "categories" | "tokens";
 const queryMapper: { [key in loaderItems]: any } = {
   me: meQueryOptions,
   store: storeQueryOptions,
-  products: storeQueryOptions,
+  products: productsQueryOptions,
   categories: categoriesQueryOptions,
   tokens: tokenQueryOptions,
 };
@@ -42,7 +43,7 @@ const routeLoader =
     const itemsData = fetchKeys.reduce(
       (acc, key, index) => {
         acc[key] = fetched[index];
-        storeMapper[key](fetched[index]);
+        context.store.dispatch(storeMapper[key](fetched[index]));
         return acc;
       },
       {} as { [key in loaderItems]: any }

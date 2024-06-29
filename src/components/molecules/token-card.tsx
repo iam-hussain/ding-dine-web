@@ -80,7 +80,7 @@ function TokenCard({ token, items, variant }: TokenCardProps) {
     <div
       key={token.id}
       className={clsx(
-        "flex flex-col h-auto gap-4 w-auto min-w-[300px] overflow-auto rounded-lg p-4 border-2 border-foreground/40",
+        "flex flex-col h-full gap-4 w-auto min-w-[320px] overflow-auto rounded-lg p-4 border-2 border-paper bg-paper",
         {
           "border-rose-400": editMode,
           "border-paper": !editMode,

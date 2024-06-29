@@ -16,7 +16,6 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LogoutImport } from './routes/logout'
 import { Route as AboutImport } from './routes/about'
 import { Route as UserImport } from './routes/_user'
-import { Route as StoreImport } from './routes/_store'
 import { Route as SplitImport } from './routes/_split'
 import { Route as IndexImport } from './routes/index'
 import { Route as UserHomeImport } from './routes/_user/home'
@@ -50,11 +49,6 @@ const AboutRoute = AboutImport.update({
 
 const UserRoute = UserImport.update({
   id: '/_user',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const StoreRoute = StoreImport.update({
-  id: '/_store',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -149,13 +143,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof SplitImport
-      parentRoute: typeof rootRoute
-    }
-    '/_store': {
-      id: '/_store'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof StoreImport
       parentRoute: typeof rootRoute
     }
     '/_user': {
@@ -307,7 +294,6 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/_split",
-        "/_store",
         "/_user",
         "/about",
         "/logout",
@@ -322,9 +308,6 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_split/login"
       ]
-    },
-    "/_store": {
-      "filePath": "_store.tsx"
     },
     "/_user": {
       "filePath": "_user.tsx",

@@ -23,7 +23,8 @@ import BaseTable from "@/components/molecules/base-table";
 import { formatDateTime } from "@/lib/date-time";
 import fetcher from "@/lib/fetcher";
 import { RootState } from "@/store";
-import routeMiddleware from "@/helpers/route-middleware";
+import routeCommon from "@/helpers/route-common";
+import routeLoader from "@/helpers/route-loader";
 
 const typeMap = {
   VEG: "Veg",
@@ -32,7 +33,8 @@ const typeMap = {
 };
 
 export const Route = createFileRoute("/store/$slug/_fluid/product")({
-  ...routeMiddleware.product,
+  ...routeCommon,
+  loader: routeLoader(["me", "store", "products", "categories"]),
   component: Product,
 });
 

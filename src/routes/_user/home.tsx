@@ -14,7 +14,12 @@ function Home() {
   const user = useSelector((state: RootState) => state.base.user);
 
   return (
-    <Box preset={"row-responsive"} variant={"page"} data-name={"page"} gap={6}>
+    <Box
+      preset={"row-responsive"}
+      variant={"container"}
+      data-name={"page"}
+      gap={6}
+    >
       <Box preset={"col-responsive"} data-name={"avatar"}>
         <AvatarCircle
           name={user.fullName}

@@ -12,10 +12,14 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
 import routeLoader from "@/helpers/route-loader";
+import routeCommon from "@/helpers/route-common";
+import Box from "@/components/atoms/box";
+import Typography from "@/components/atoms/typography";
 
 export const Route = createFileRoute("/store/$slug/_screen/kitchen")({
-  component: Kitchen,
+  ...routeCommon,
   loader: routeLoader(["me", "store", "tokens"]),
+  component: Kitchen,
 });
 
 function Kitchen() {
@@ -26,23 +30,21 @@ function Kitchen() {
     tokenQueryOptions(enableKitchenCategory)
   );
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full px-6 py-4 align-middle bg-paper">
+    <Box preset={"col-center"} className="w-full h-full p-6">
       <Tabs
         defaultValue="progress"
         className={"flex gap-4 flex-col w-full h-full"}
       >
-        <TabsList className="flex justify-between w-full align-middle gap-x-h ">
-          <h1 className="text-2xl font-semibold text-foreground">
-            Kitchen Tokens Display
-          </h1>
+        <TabsList className="flex justify-between w-full align-middle gap-x-h">
+          <Typography variant={"h3"}>Kitchen Tokens Display</Typography>
           <div className="flex gap-4">
             <TabsTrigger value="scheduled">Scheduled</TabsTrigger>
             <TabsTrigger value="progress">InProgress</TabsTrigger>
             <TabsTrigger value="completed">Completed</TabsTrigger>
           </div>
         </TabsList>
-        <div className="flex p-6 bg-background grow h-5/6 ">
-          <ScrollArea className={"w-full h-full pr-4"}>
+        <div className="flex p-4 py-8 grow h-5/6 bg-background">
+          <ScrollArea className={"w-full h-full pr-2"}>
             <TabsContent value="scheduled">
               <TokenCollection
                 variant="scheduled"
@@ -67,6 +69,6 @@ function Kitchen() {
           </ScrollArea>
         </div>
       </Tabs>
-    </div>
+    </Box>
   );
 }

@@ -3,11 +3,15 @@ import { IconKey } from "@/components/atoms/icon";
 import { CustomLink } from "@/components/atoms/link";
 import Typography from "@/components/atoms/typography";
 import AvatarCircle from "@/components/molecules/avatar-circle";
+import routeCommon from "@/helpers/route-common";
+import routeLoader from "@/helpers/route-loader";
 import { RootState } from "@/store";
 import { createFileRoute } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
 
 export const Route = createFileRoute("/store/$slug/_fluid/")({
+  ...routeCommon,
+  loader: routeLoader(["me", "store"]),
   component: Store,
 });
 
@@ -51,7 +55,12 @@ function Store() {
   const store = useSelector((state: RootState) => state.base.store);
 
   return (
-    <Box preset={"row-responsive"} variant={"page"} data-name={"page"} gap={6}>
+    <Box
+      preset={"row-responsive"}
+      variant={"container"}
+      data-name={"page"}
+      gap={6}
+    >
       <Box preset={"col-responsive"} data-name={"avatar"}>
         <AvatarCircle
           name={store.slug}

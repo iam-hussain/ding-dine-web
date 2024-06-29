@@ -1,24 +1,18 @@
 import TopMenu from "@/components/organisms/top-menu";
 import UserMenu from "@/components/organisms/user-menu";
 import { shouldBeLoggedIn } from "@/lib/middleware";
-import { meQueryOptions } from "@/helpers/query-options";
 import { classNames } from "@/lib/utils";
 import { RootState } from "@/store";
-import { setUser } from "@/store/baseSlice";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
+import routeCommon from "@/helpers/route-common";
+import routeLoader from "@/helpers/route-loader";
 
 export const Route = createFileRoute("/_user")({
+  ...routeCommon,
   beforeLoad: shouldBeLoggedIn as any,
+  loader: routeLoader(["me"]),
   component: UserLayout,
-  loader: async ({ context }) => {
-    const queryClient = context.queryClient;
-    const meData = await queryClient.ensureQueryData(meQueryOptions());
-
-    if (meData) {
-      context.store.dispatch(setUser(meData));
-    }
-  },
 });
 
 function UserLayout() {

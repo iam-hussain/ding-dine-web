@@ -101,7 +101,7 @@ function SideMenu({ className }: { className?: string }) {
           className
         )}
       >
-        <Box preset={"col-start"} className="h-full overflow-hidden">
+        <Box preset={"col-start"} className="h-full overflow-hidden" as="nav">
           <Box>
             <AvatarBadge hed={store.name} dek={store.slug} />
             <Button

@@ -8,6 +8,7 @@ import { RootState } from "@/store";
 import { setStore, setUser } from "@/store/baseSlice";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useSelector } from "react-redux";
+import Box from "@/components/atoms/box";
 
 export const Route = createFileRoute("/store/$slug/_screen")({
   beforeLoad: shouldBeLoggedIn as any,
@@ -34,25 +35,23 @@ function StoreLayout() {
   const topBarOpen = useSelector((state: RootState) => state.page.topBarOpen);
 
   return (
-    <div className="main-screen-wrapper">
+    <Box variant={"page-screen"} preset={"row-stretch"} as="main">
       <SideMenu />
-      <main className={"page-main bg-background"}>
+      <Box variant={"page-content"} preset={"row-stretch"} as="section">
         <TopMenu
           className="fixed z-30 block w-full bg-background"
           showSideBar={true}
         />
-        <div
-          className={classNames(
-            "h-full min-h-svh w-full transition-all duration-300",
-            {
-              "pt-[61px]": topBarOpen,
-            }
-          )}
+        <Box
+          variant={"page-fill"}
+          className={classNames("transition-all duration-300 bg-paper", {
+            "pt-[61px]": topBarOpen,
+          })}
         >
           <Outlet />
-        </div>
-      </main>
+        </Box>
+      </Box>
       <UserMenu />
-    </div>
+    </Box>
   );
 }
