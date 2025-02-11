@@ -34,8 +34,8 @@ function OrderTypeSelect() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Order Type</SelectLabel>
-                {(enableExpressOrder || field.value === "PICK_UP") && (
-                  <SelectItem value="PICK_UP">Express</SelectItem>
+                {(enableExpressOrder || field.value === "EXPRESS") && (
+                  <SelectItem value="EXPRESS">Express</SelectItem>
                 )}
                 <SelectItem value="DINING">Dine In</SelectItem>
                 <SelectItem value="TAKE_AWAY">Take Away</SelectItem>
